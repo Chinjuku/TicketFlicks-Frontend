@@ -9,7 +9,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false)
   return (
     <div
-      className={`desktop:h-[196px] laptop:h-[140px] tablet:h-[150px] phone:h-[97px] flex fixed top-0 z-10 w-full`}
+      className={`bg-black desktop:h-[196px] laptop:h-[140px] tablet:h-[150px] phone:h-[97px] flex fixed top-0 z-10 w-full`}
     >
       {/* Responsive For Laptop & Desktop */}
       <div className="tablet:hidden phone:hidden w-full flex">

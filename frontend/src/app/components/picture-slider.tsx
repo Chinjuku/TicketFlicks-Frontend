@@ -1,0 +1,38 @@
+"use client"
+import "@madzadev/image-slider/dist/index.css";
+// @ts-ignore
+import Slider from "@madzadev/image-slider";
+
+const SliderPicture = () => {
+    const images = [
+        { url: "https://picsum.photos/seed/a/1600/900" },
+        { url: "https://picsum.photos/seed/b/1920/1080" },
+        { url: "https://picsum.photos/seed/c/1366/768" },
+      ];
+    return (
+        <>
+        <div className="phone:hidden tablet:hidden">
+          <Slider
+            imageList={images}
+            width={`100%`}
+            height={300}
+            loop={true}
+            autoPlay={true}
+            autoPlayInterval={3000} // in milliseconds
+          />
+        </div>
+        <div className="laptop:hidden desktop:hidden">
+          <Slider
+            imageList={images}
+            width={`100%`}
+            height={240}
+            loop={true}
+            autoPlay={true}
+            autoPlayInterval={3000} // in milliseconds
+          />
+        </div>
+        </>
+    )
+}
+
+export default SliderPicture

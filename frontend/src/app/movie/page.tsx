@@ -1,7 +1,8 @@
+
 const Movie = () => {
+    // const nowshowing = "";
     return (
-        <div>
-        </div>
+        <></>
     )
 
 }
