@@ -1,0 +1,18 @@
+
+@media (min-width: 1520px) {
+    .navmovie-desktop {
+        @apply h-[125px] text-[32px] mx-[18%];
+    }
+    .navbox-desktop {
+        @apply h-[100px] rounded-[50px] text-[32px] border-[5px] font-extrabold;
+    }
+}
+
+@media (min-width: 1121px) and (max-width: 1500px) {
+    .navmovie-laptop {
+        @apply h-[100px] text-[24px] mx-[16%];
+    }
+    .navbox-laptop {
+        @apply h-[74px] rounded-[38px] text-[22px] border-[5px] font-extrabold;
+    }
+}

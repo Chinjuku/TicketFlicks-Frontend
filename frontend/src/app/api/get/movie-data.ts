@@ -1,6 +1,6 @@
 import { unstable_noStore as noStore } from 'next/cache';
 import axios from 'axios';
-import { MovieTypes } from '@/app/types/movie';
+import { FavMovieTypes, MovieTypes } from '@/app/types/movie';
 
 export const fetchAllMovies = async (): Promise<MovieTypes[]> => {
     noStore();
@@ -61,5 +61,36 @@ export const fetchRecommandMovie = async (): Promise<MovieTypes[]> => {
         return [];
     }
 }
+
+export const fetchTopFiveMovie = async (): Promise<MovieTypes[]> => {
+    noStore();
+    try {
+        const res = await axios.get<MovieTypes[]>("http://localhost:8000/api/movie/topfive/")
+        if (res.status === 200) {
+            return res.data;
+        } else {
+            return [];
+        }
+    } catch (err) {
+        console.error(err);
+        return [];
+    }
+}
+
+export const fetchFavoriteMovie = async (): Promise<FavMovieTypes[]> => {
+    noStore();
+    try {
+        const res = await axios.get<FavMovieTypes[]>("http://localhost:8000/api/movie/fav/")
+        if (res.status === 200) {
+            return res.data;
+        } else {
+            return [];
+        }
+    } catch (err) {
+        console.error(err);
+        return [];
+    }
+}
+
 
 
