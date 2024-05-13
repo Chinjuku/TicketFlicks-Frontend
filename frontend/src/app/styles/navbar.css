@@ -9,7 +9,7 @@
     }
 }
 
-@media (min-width: 1121px) and (max-width: 1500px) {
+@media (min-width: 1121px) and (max-width: 1520px) {
     .ticketflicks_laptop {
         @apply text-[36px] font-extrabold;
     }

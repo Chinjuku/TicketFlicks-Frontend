@@ -16,8 +16,8 @@ const MovieSlider = (props: { id: string; fetchData: MovieTypes[] | null }) => {
   };
   return (
     <div className="trending">
-      <div className="container gap-5">
-        <div className="title-btns desktop:mt-[-10%] laptop:mt-[-8%]">
+      <div className="container gap-5 phone:gap-0 tablet:max-w-[1000px] laptop:max-w-[1200px] phone:max-w-[350px]">
+        <div className="title-btns desktop:mt-[-10%] laptop:mt-[-8%] phone:mt-[-8%]">
           <h3></h3>
           <div className="btns">
             <button title="scroll left" onClick={() => slideLeft(id)}>
@@ -29,7 +29,7 @@ const MovieSlider = (props: { id: string; fetchData: MovieTypes[] | null }) => {
           </div>
         </div>
         <div
-          className="row-container flex h-[85%] desktop:gap-10 laptop:gap-[25px]"
+          className="row-container flex h-[85%] desktop:gap-10 laptop:gap-[25px] tablet:gap-[25px] phone:gap-[20px]"
           id={`slider${id}`}
         >
           {fetchData &&

@@ -29,6 +29,7 @@ const SliderPicture = () => {
             loop={true}
             autoPlay={true}
             autoPlayInterval={3000} // in milliseconds
+            // showArrowControls={0}
           />
         </div>
         </>

@@ -20,6 +20,7 @@ export const fetchAllMovies = async (): Promise<MovieTypes[]> => {
 export const fetchOnShowMovie = async (): Promise<MovieTypes[]> => {
     noStore();
     try {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         const res = await axios.get<MovieTypes[]>("http://localhost:8000/api/movie/onshow/")
         if (res.status === 200) {
             return res.data;
@@ -35,6 +36,7 @@ export const fetchOnShowMovie = async (): Promise<MovieTypes[]> => {
 export const fetchCommingMovie = async (): Promise<MovieTypes[]> => {
     noStore();
     try {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         const res = await axios.get<MovieTypes[]>("http://localhost:8000/api/movie/comming/")
         if (res.status === 200) {
             return res.data;
@@ -50,6 +52,7 @@ export const fetchCommingMovie = async (): Promise<MovieTypes[]> => {
 export const fetchRecommandMovie = async (): Promise<MovieTypes[]> => {
     noStore();
     try {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         const res = await axios.get<MovieTypes[]>("http://localhost:8000/api/movie/recommand/")
         if (res.status === 200) {
             return res.data;
@@ -65,6 +68,7 @@ export const fetchRecommandMovie = async (): Promise<MovieTypes[]> => {
 export const fetchTopFiveMovie = async (): Promise<MovieTypes[]> => {
     noStore();
     try {
+        await new Promise((resolve) => setTimeout(resolve, 1000));
         const res = await axios.get<MovieTypes[]>("http://localhost:8000/api/movie/topfive/")
         if (res.status === 200) {
             return res.data;

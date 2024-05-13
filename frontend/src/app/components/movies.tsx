@@ -44,9 +44,9 @@ const ManyMovie = async () => {
             <section
               key={index}
               id={movie.id}
-              className="desktop:h-[670px] laptop:h-[520px] mx-[10%]"
+              className="max-h-[670px] mx-[10%] my-[6%] flex flex-col laptop:gap-[50px] desktop:gap-[100px]"
             >
-              <p className="h-[15%] laptop:mx-3 laptop:text-[23px] desktop:text-[30px] font-extrabold flex items-center">
+              <p className="h-[15%] laptop:mx-3 laptop:text-[26px] tablet:text-[23px] tablet:mb-[-30px] desktop:text-[33px] font-extrabold flex items-center">
                 {movie.name}
               </p>
               <MovieSlider key={index} id={movie.id} fetchData={movie.fetchData} />

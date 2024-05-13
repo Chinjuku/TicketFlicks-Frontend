@@ -7,9 +7,12 @@ import { getFavorite } from "../api/get/favorite-movie-data";
 import Image from "next/image";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { MovieTypes } from "../types/movie";
+import Link from "next/link";
+import { Button } from "@nextui-org/button";
 
 const MovieCard = (props: { data: MovieTypes }) => {
-    const [fav, setFav] = useState(false)
+    const [innerWidth, setInnerWidth] = useState<number>(0)
+    const [fav, setFav] = useState<boolean>(false)
     const { data } = props;
     useEffect(() => {
       const fetchData = async () => {
@@ -17,61 +20,54 @@ const MovieCard = (props: { data: MovieTypes }) => {
         if (res) {
           setFav(res);
         }
+        setInnerWidth(window.innerWidth)
       };
       fetchData();
     }, [data.id]);
     const clickFavorite = async (id: string) => {
       const favorite = await createFavorite(id)
-      setFav(favorite.message)
-    }
-    const handleSelect = (id: string) => {
-      console.log(id);
+      if (favorite) setFav(true)
     }
     return (
       <div key={data.id} id={data.id} className="relative h-full">
-        {/* Desktop and laptop view */}
-        <div className="hidden bg-cover desktop:block w-[270px] h-[400px]">
-          <Image
+        <Image
             src={`http://localhost:8000${data.movie_img}`}
             width={270}
-            height={400}
+            height={380}
             style={{
-              width: 270,
-              height: 400
+                // Desktop style
+                maxWidth: "270px",
+                height: "380px",
+                // Laptop & Tablet style
+                ...(innerWidth >= 611 && innerWidth <= 1520 && {
+                    maxWidth: "200px",
+                    height: "300px",
+                }),
+                // Phone style
+                ...(innerWidth >= 275 && innerWidth <= 611 && {
+                    maxWidth: "140px",
+                    height: "200px",
+                }),
             }}
             alt={data.movie_name}
-          />
-        </div>
-        {/* Laptop view */}
-        <div className="hidden bg-cover w-[200px] h-[300px] laptop:flex laptop:flex-col">
-          <Image
-            src={`http://localhost:8000${data.movie_img}`}
-            width={200}
-            height={330}
-            style={{
-              width: 200,
-              height: 330
-            }}
-            alt={data.movie_name}
-          />
-        </div>
-        <div className="h-[50px] bg-black font-bold laptop:text-[14px] flex flex-col justify-center items-center">
-              <p>Release Date: {moment(data.showing_date).format('MM/DD/YYYY')}</p>
+        />
+        <div className="h-[50px] desktop:h-[60px] phone:text-[10px] bg-black font-bold laptop:text-[14px] flex flex-col justify-center items-center">
+            <p>Release Date: {moment(data.showing_date).format('MM/DD/YYYY')}</p>
         </div>
         {/* Hover effect */}
-        <div className="px-4 absolute w-full laptop:h-[300px] desktop: overflow-hidden bottom-0 left-0 right-0 top-0 bg-fixed opacity-0 bg-black transition duration-300 ease-in-out hover:bg-opacity-80 hover:opacity-100 flex flex-col justify-center gap-2">
+        <div className="px-4 absolute w-full max-h-[86%] overflow-hidden bottom-0 left-0 right-0 top-0 bg-fixed opacity-0 bg-black transition duration-300 ease-in-out hover:bg-opacity-80 hover:opacity-100 flex flex-col justify-center gap-2">
           <button onClick={() => clickFavorite(data.id)} className="absolute top-3 right-3">
-              <HeartIcon className={clsx("desktop:w-10 laptop:w-8",
+              <HeartIcon className={clsx("desktop:w-10 laptop:w-8 tablet:w-7",
                   {
                       "fill-yellow stroke-yellow" : fav,
                       "fill-none stroke-white" :!fav,
                   }  
               )} />
           </button>
-          <p className="text-white text-lg font-extrabold desktop:text-[20px] desktop:w-[240px] laptop:text-[14px] laptop:w-[160px] h-auto whitespace-normal">
+          <p className="text-white text-lg font-extrabold desktop:text-[20px] phone:w-[120px] phone:text-[12px] desktop:w-[240px] text-[14px] w-[160px] h-auto whitespace-normal">
             {data.movie_name}
           </p>
-          <p className="font-bold desktop:text-[16px] laptop:text-[12.8px] desktop:w-[240px] laptop:w-[160px] text-quaternary h-auto whitespace-normal">
+          <p className="font-bold desktop:text-[16px] text-[12.8px] phone:text-[10.7px] desktop:w-[240px] w-[160px] text-quaternary h-auto whitespace-normal">
             {data.categories?.map((category, index) => (
               <>
                 {data.categories.length == 1 ||
@@ -81,7 +77,7 @@ const MovieCard = (props: { data: MovieTypes }) => {
               </>
             ))}
           </p>
-          <p className="font-bold desktop:text-[14px] laptop:text-[12px] desktop:w-[240px] laptop:w-[160px] text-quaternary h-auto whitespace-normal">
+          <p className="font-bold desktop:text-[14px] text-[12px] phone:text-[10px] desktop:w-[240px] w-[160px] text-quaternary h-auto whitespace-normal">
               {
                   Math.floor(data.show_time_mins / 60) + "ชม."
               }
@@ -89,9 +85,9 @@ const MovieCard = (props: { data: MovieTypes }) => {
                   data.show_time_mins % 60 + "นาที"
               }
           </p>
-          <button onClick={() => handleSelect(data.id)} className="absolute w-[85%] bottom-3 px-5 py-3 rounded-lg bg-quaternary">
+          <Link href='/movie/[id]' as={`/movie/${data.id}`} className="absolute desktop:text-[18px] hover:bg-tertiary transition-all laptop:text-[15px] w-[85%] phone:text-[13px] bottom-3 phone:py-2 px-5 py-3 rounded-lg flex justify-center font-bold bg-quaternary">
             Select this movie
-          </button>
+          </Link>
         </div>
       </div>
     );

@@ -1,18 +1,33 @@
 
 @media (min-width: 1520px) {
     .navmovie-desktop {
-        @apply h-[125px] text-[32px] mx-[18%];
+        @apply h-[125px] text-[30px] mx-[16%];
     }
     .navbox-desktop {
         @apply h-[100px] rounded-[50px] text-[32px] border-[5px] font-extrabold;
     }
 }
 
-@media (min-width: 1121px) and (max-width: 1500px) {
+@media (min-width: 1121px) and (max-width: 1520px) {
     .navmovie-laptop {
-        @apply h-[100px] text-[24px] mx-[16%];
+        @apply h-[100px] text-[22px] mx-[14%];
     }
     .navbox-laptop {
         @apply h-[74px] rounded-[38px] text-[22px] border-[5px] font-extrabold;
+    }
+}
+
+@media (min-width: 611px) and (max-width: 1121px) {
+    .navmovie-tablet {
+        @apply h-[75px] text-[18px] mx-[12%];
+    }
+    .navbox-tablet {
+        @apply h-[74px] rounded-[38px] text-[22px] border-[5px] font-extrabold;
+    }
+}
+
+@media (min-width: 275px) and (max-width: 611px) {
+    .navmovie-phone {
+        @apply h-[120px] text-[16px] mx-[10%];
     }
 }
