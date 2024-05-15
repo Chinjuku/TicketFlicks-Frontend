@@ -1,15 +1,13 @@
-import MovieNav from "@/app/components/movie-nav";
-import SliderPicture from "@/app/components/picture-slider";
-import ManyMovie from "@/app/components/movies";
+import MovieNav from "@/app/components/Home/movie-nav";
+import SliderPicture from "@/app/components/Home/picture-slider";
+import ManyMovie from "@/app/components/Home/movies";
 import "@/app/styles/home.css"
-import { fetchTopFiveMovie } from "@/app/api/get/movie-data";
-import MovieCard from "@/app/components/movie-card";
-import SelectMovie from "@/app/components/select-movie";
+import SelectMovie from "@/app/components/Home/select-movie";
 import { Suspense } from "react";
-import SkeletonMovieCard from "./ui/Loading/skeleton-movie-card";
+import { SkeletonMovieCard, SkeletonTop5Card } from "./ui/Loading/skeleton-movie-card";
+import { TopFiveMovies } from "./components/Home/topfive-movies";
 
 export default async function Home() {
-  const topfive = await fetchTopFiveMovie()
   return (
     <main>
         <SliderPicture />
@@ -26,20 +24,11 @@ export default async function Home() {
             <ManyMovie />
           </Suspense>
         </div>
-        <div className="flex flex-col mx-[5%] mb-[5%]">
-          <h1 className="text-center desktop:text-[44px] laptop:text-[34px] tablet:text-[29px] phone:text-[20px] font-extrabold my-[2.5%]">Top 5 Most Rating Movies</h1>
-          <div className="flex flex-1 flex-wrap justify-center items-center py-4 desktop:gap-10 gap-[25px] mx-[2.5%]">
-          {
-            topfive.map((movie) => {
-              return (
-                <MovieCard key={movie.id} data={movie}  />
-              );
-            })
-          }
-          </div>
-        </div>
+        <Suspense fallback={<SkeletonTop5Card />}>
+          <TopFiveMovies />
+        </Suspense>
         <div className="h-[100px] bg-black">
-
+          
         </div>  
     </main>
   );

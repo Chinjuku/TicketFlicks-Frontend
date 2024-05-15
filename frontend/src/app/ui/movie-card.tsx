@@ -8,7 +8,6 @@ import Image from "next/image";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { MovieTypes } from "../types/movie";
 import Link from "next/link";
-import { Button } from "@nextui-org/button";
 
 const MovieCard = (props: { data: MovieTypes }) => {
     const [innerWidth, setInnerWidth] = useState<number>(0)
@@ -29,11 +28,12 @@ const MovieCard = (props: { data: MovieTypes }) => {
       if (favorite) setFav(true)
     }
     return (
-      <div key={data.id} id={data.id} className="relative h-full">
+      <div id={data.id} className="relative h-full hover:translate-y-2 transition-all">
         <Image
             src={`http://localhost:8000${data.movie_img}`}
             width={270}
             height={380}
+            priority={false}
             style={{
                 // Desktop style
                 maxWidth: "270px",

@@ -23,8 +23,8 @@ const config: Config = {
         white: "#fff",
         black: "#000",
         yellow: "#FFE500",
-        default300 : "#52525b",
-        default200 : "#3f3f46"
+        default300 : "#15202b",
+        default200 : "#1e2e3d"
       },
     },
     colors : {

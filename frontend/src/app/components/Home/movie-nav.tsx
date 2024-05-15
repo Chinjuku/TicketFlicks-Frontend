@@ -27,6 +27,7 @@ export default function MovieNav() {
             key={index}
             href={`#${item.path}`}
             scroll={true}
+            className="hover:translate-y-[-5px] transition-all"
           >
             {item.name}
           </Link>

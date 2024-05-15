@@ -1,6 +1,6 @@
 "use client";
 import "@/app/styles/navbar.css";
-import NavLinks from "@/app/components/nav-links";
+import NavLinks from "@/app/components/Home/nav-links";
 import { TicketIcon, Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import clsx from "clsx";

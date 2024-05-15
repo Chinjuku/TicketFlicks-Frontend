@@ -1,8 +1,8 @@
 "use client";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
-import { MovieTypes } from "../types/movie";
+import { MovieTypes } from "../../types/movie";
 import "@/app/styles/movie-slider.css";
-import MovieCard from "@/app/components/movie-card";
+import MovieCard from "@/app/ui/movie-card";
 
 const MovieSlider = (props: { id: string; fetchData: MovieTypes[] | null }) => {
   const { id, fetchData } = props;
@@ -33,9 +33,9 @@ const MovieSlider = (props: { id: string; fetchData: MovieTypes[] | null }) => {
           id={`slider${id}`}
         >
           {fetchData &&
-            fetchData.map((data: MovieTypes) => (
+            fetchData.map((data: MovieTypes, index) => (
               <>
-                <MovieCard key={data.id} data={data} />
+                <MovieCard key={`${index}_${id}`} data={data} />
               </>
             ))}
         </div>
