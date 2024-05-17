@@ -1,11 +1,12 @@
 import { fetchAllMovies, fetchCommingMovie, fetchFavoriteMovie, fetchOnShowMovie, fetchRecommandMovie } from "@/app/api/get/movie-data";
+import { MovieTypes } from "../types/movie";
 
 // suspense-fetcher.ts
 const cache = new Map();
 
-export function wrapPromise(promise: Promise<any>) {
+export function wrapPromise(promise: Promise<MovieTypes[]>) {
     let status = "pending";
-    let result: any;
+    let result: MovieTypes[];
     const suspender = promise.then(
         (res) => {
             status = "success";
@@ -51,3 +52,5 @@ export function fetchMovieData(type: string) {
     }
     return cache.get(type);
 }
+
+

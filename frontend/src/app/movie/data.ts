@@ -1,5 +1,5 @@
 export const types = [
-    "ALL MOVIES", "NOW SHOWING", "COMMING SOON", "RECCOMMANDED", "FAVORITE"
+    "ALL MOVIES", "NOW SHOWING", "COMMING SOON", "FAVORITE", "RECCOMMANDED"
 ]
 
 export const getRandomTypes = () => {

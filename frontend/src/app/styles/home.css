@@ -28,6 +28,6 @@
 
 @media (min-width: 275px) and (max-width: 611px) {
     .navmovie-phone {
-        @apply h-[120px] text-[16px] mx-[10%];
+        @apply h-[200px] text-[16px] mx-[10%];
     }
 }

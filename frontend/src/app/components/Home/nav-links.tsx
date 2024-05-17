@@ -25,7 +25,7 @@ export default function NavLinks({ value, setClose }: NavLinkProps) {
             key={link.name}
             href={link.href}
             className={clsx(
-              'flex transition-all hover:text-quaternary grow flex-col items-center justify-center gap-2',
+              'flex transition-all hover:text-quaternary phone:text-[8px] grow flex-col items-center justify-center gap-3',
               {
                 'text-quaternary': pathname === link.href,
               },

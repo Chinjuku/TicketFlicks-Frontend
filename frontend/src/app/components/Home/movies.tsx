@@ -44,7 +44,7 @@ const ManyMovie = async () => {
             <section
               key={movie.id}
               id={movie.id}
-              className="max-h-[670px] mx-[10%] my-[6%] flex flex-col laptop:gap-[50px] desktop:gap-[100px]"
+              className="max-h-[670px] mx-[10%] my-[6%] flex flex-col laptop:gap-[50px] desktop:gap-[100px] phone:w-full"
             >
               <p className="h-[15%] laptop:mx-3 laptop:text-[26px] tablet:text-[23px] tablet:mb-[-30px] desktop:text-[33px] font-extrabold flex items-center">
                 {movie.name}

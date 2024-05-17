@@ -16,7 +16,7 @@ const MovieSlider = (props: { id: string; fetchData: MovieTypes[] | null }) => {
   };
   return (
     <div className="trending">
-      <div className="container gap-5 phone:gap-0 tablet:max-w-[1000px] laptop:max-w-[1200px] phone:max-w-[350px]">
+      <div className="container gap-5 phone:gap-0 tablet:max-w-[1000px] laptop:max-w-[1200px] phone:max-w-[400px]">
         <div className="title-btns desktop:mt-[-10%] laptop:mt-[-8%] phone:mt-[-8%]">
           <h3></h3>
           <div className="btns">

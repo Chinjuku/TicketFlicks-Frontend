@@ -2,9 +2,8 @@ import Image from "next/image";
 import { fetchTopFiveMovie } from "@/app/api/get/movie-data";
 import React from "react";
 
-export const Top5BoxOffice = async () => {
+const Top5BoxOffice = async () => {
   const topfive_movies = await fetchTopFiveMovie();
-    
   return (
     <div className="top_five_box relative border-l-3 border-e-3 border-b-3 border-white flex justify-center w-full px-[15px] py-10">
       <div className="h-[2px] bg-white w-1/5 absolute top-0 left-0"></div>
@@ -36,3 +35,5 @@ export const Top5BoxOffice = async () => {
     </div>
   );
 };
+
+export default Top5BoxOffice;

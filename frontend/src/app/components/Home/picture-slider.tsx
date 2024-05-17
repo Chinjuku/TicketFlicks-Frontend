@@ -11,7 +11,7 @@ const SliderPicture = () => {
       ];
     return (
         <>
-        <div className="phone:hidden tablet:hidden">
+        <div className="phone:hidden tablet:hidden mb-[4%]">
           <Slider
             imageList={images}
             width={`100%`}
@@ -19,6 +19,7 @@ const SliderPicture = () => {
             loop={true}
             autoPlay={true}
             autoPlayInterval={3000} // in milliseconds
+            showDotControls={false}
           />
         </div>
         <div className="laptop:hidden desktop:hidden">
@@ -29,6 +30,7 @@ const SliderPicture = () => {
             loop={true}
             autoPlay={true}
             autoPlayInterval={3000} // in milliseconds
+            showArrowControls={false}
           />
         </div>
         </>
