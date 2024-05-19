@@ -1,5 +1,5 @@
-import { fetchAllMovies, fetchCommingMovie, fetchFavoriteMovie, fetchOnShowMovie, fetchRecommandMovie } from "@/app/api/get/movie-data";
-import { MovieTypes } from "../types/movie";
+import { fetchAllMovies, fetchCommingMovie, fetchFavoriteMovie, fetchOnShowMovie, fetchRecommandMovie } from "@/api/get/movie-data";
+import { MovieTypes } from "@/types/movie";
 
 // suspense-fetcher.ts
 const cache = new Map();
@@ -41,7 +41,7 @@ export function fetchMovieData(type: string) {
                 case "RECCOMMANDED":
                     return await fetchRecommandMovie();
                 case "FAVORITE":
-                    return await fetchFavoriteMovie().then(favMovies => favMovies.map(m => m.movieId));
+                    return await fetchFavoriteMovie().then((favMovies: any) => favMovies.map((m:any) => m.movieId));
                 case "ALL MOVIES":
                 default:
                     return await fetchAllMovies();

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { fetchTopFiveMovie } from "@/app/api/get/movie-data";
+import { fetchTopFiveMovie } from "@/api/get/movie-data";
 import React from "react";
 
 const Top5BoxOffice = async () => {

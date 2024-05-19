@@ -1,17 +1,13 @@
 "use client"
-import "@/app/styles/home.css"
-import { NavMovie } from "@/app/components/Movie/movie-nav"
+import "@/styles/home.css"
+import { NavMovie } from "@/components/Movie/movie-nav"
 import SelectMovie from "@/app/ui/select-movie"
 import { Suspense, useEffect, useRef, useState } from "react"
-import ShowMovieType from "@/app/components/Movie/show-movie-type"
+import ShowMovieType from "@/components/Movie/show-movie-type"
 import { SkeletonMovie, SkeletonTop5BoxOffice } from "@/app/ui/Loading/skeleton-movie"
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
-import Top5BoxOffice from "@/app/components/Movie/boxoffice"
-// import dynamic from "next/dynamic";
-// const Top5BoxOffice = dynamic(() => import("@/app/components/Movie/boxoffice"), {
-//   suspense: true,
-// });
+import Top5BoxOffice from "@/components/Movie/boxoffice"
 
 gsap.registerPlugin(ScrollTrigger);
 

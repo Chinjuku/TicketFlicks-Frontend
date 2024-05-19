@@ -1,6 +1,6 @@
 import { unstable_noStore as noStore } from 'next/cache';
 import axios from 'axios';
-import { FavMovieTypes, MovieTypes } from '@/app/types/movie';
+import { FavMovieTypes, MovieTypes } from '@/types/movie';
 
 export const fetchAllMovies = async (): Promise<MovieTypes[]> => {
     noStore();

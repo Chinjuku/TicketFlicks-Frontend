@@ -1,11 +1,11 @@
-import MovieNav from "@/app/components/Home/movie-nav";
-import SliderPicture from "@/app/components/Home/picture-slider";
-import ManyMovie from "@/app/components/Home/movies";
-import "@/app/styles/home.css"
+import MovieNav from "@/components/Home/movie-nav";
+import SliderPicture from "@/components/Home/picture-slider";
+import ManyMovie from "@/components/Home/movies";
+import "@/styles/home.css"
 import SelectMovie from "@/app/ui/select-movie";
 import { Suspense } from "react";
 import { SkeletonMovieCard, SkeletonTop5Card } from "./ui/Loading/skeleton-movie-card";
-import { TopFiveMovies } from "./components/Home/topfive-movies";
+import { TopFiveMovies } from "@/components/Home/topfive-movies";
 
 export default async function Home() {
   return (

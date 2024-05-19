@@ -1,6 +1,6 @@
 "use client";
 import { fetchMovieData } from "@/app/movie/movie-data";
-import { MovieTypes } from "@/app/types/movie";
+import { MovieTypes } from "@/types/movie";
 import MovieCard from "@/app/ui/movie-card";
 import React, { forwardRef } from "react";
 

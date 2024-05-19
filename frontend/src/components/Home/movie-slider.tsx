@@ -1,7 +1,7 @@
 "use client";
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
-import { MovieTypes } from "../../types/movie";
-import "@/app/styles/movie-slider.css";
+import { MovieTypes } from "@/types/movie";
+import "@/styles/movie-slider.css";
 import MovieCard from "@/app/ui/movie-card";
 
 const MovieSlider = (props: { id: string; fetchData: MovieTypes[] | null }) => {

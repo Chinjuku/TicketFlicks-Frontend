@@ -3,8 +3,8 @@ import {
   fetchFavoriteMovie,
   fetchOnShowMovie,
   fetchRecommandMovie,
-} from "@/app/api/get/movie-data";
-import MovieSlider from "@/app/components/Home/movie-slider";
+} from "@/api/get/movie-data";
+import MovieSlider from "@/components/Home/movie-slider";
 
 const ManyMovie = async () => {
   const onshow_movie = await fetchOnShowMovie();

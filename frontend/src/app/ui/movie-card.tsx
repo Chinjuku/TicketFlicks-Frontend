@@ -1,11 +1,12 @@
+/* eslint-disable @next/next/no-img-element */
 "use client"
 import { useEffect, useState } from "react";
 import moment from "moment";
 import clsx from "clsx";
-import { createFavorite } from "@/app/api/post/favorite-movie-data";
-import { getFavorite } from "../api/get/favorite-movie-data";
+import { createFavorite } from "@/api/post/favorite-movie-data";
+import { getFavorite } from "@/api/get/favorite-movie-data";
 import { HeartIcon } from "@heroicons/react/24/outline";
-import { MovieTypes } from "../types/movie";
+import { MovieTypes } from "@/types/movie";
 import Link from "next/link";
 import { Button } from "@nextui-org/button";
 

@@ -1,5 +1,3 @@
-import { TheatreTypes } from "@/app/types/theatre";
-
 export interface FavMovieTypes {
     movieId: {
         id: string;
@@ -13,7 +11,8 @@ export interface FavMovieTypes {
         actors: ActorTypes[]; // Assuming Actor is a separate export interface representing actors
         categories: CategoryTypes[]; // Assuming Category is a separate export interface representing categories
         showing_due: Date; // Assuming the showing_due field is stored as a string in ISO format
-        theatre: TheatreTypes[]; // Assuming Theatre is a separate export interface representing theatres
+        director: string; // Assuming the director field
+        // theatre: TheatreTypes[]; // Assuming Theatre is a separate export interface representing theatres
     }
 }
 
@@ -29,15 +28,18 @@ export interface MovieTypes {
     actors: ActorTypes[]; // Assuming Actor is a separate export interface representing actors
     categories: CategoryTypes[]; // Assuming Category is a separate export interface representing categories
     showing_due: Date; // Assuming the showing_due field is stored as a string in ISO format
-    theatre: TheatreTypes[]; // Assuming Theatre is a separate export interface representing theatres
+    director: string
+    // theatre: TheatreTypes[]; // Assuming Theatre is a separate export interface representing theatres
 }
 
 export interface ActorTypes {
     id: string;
     actor_name: string;
+    performed_as: string;
     actor_img: string;
 }
 
 export interface CategoryTypes {
+    id: string;
     category_name: string;
 }
