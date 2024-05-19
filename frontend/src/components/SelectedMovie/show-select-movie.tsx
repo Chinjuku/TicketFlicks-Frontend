@@ -1,16 +1,21 @@
 /* eslint-disable @next/next/no-img-element */
 "use client"
 import { MovieTypes } from "@/types/movie";
-import { SkeletonSelectMovie } from "@/app/ui/Loading/skeleton-selected-movie";
 import { LockClosedIcon } from "@heroicons/react/24/outline";
 import clsx from "clsx";
 import moment from "moment";
 import { Button } from "@nextui-org/button";
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
 const ShowSelectMovie = (props : {fetchMovie: MovieTypes | null}) => {
   const { fetchMovie } = props
   const [openContent, setOpenContent] = useState<boolean>(false)
+  const extendRef = useRef<HTMLDivElement>(null)
+  useEffect(() => {
+    if (extendRef.current) {
+      extendRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [])
   return (
     <>
       <section className="flex gap-[7%] laptop:h-[500px]">
@@ -40,7 +45,9 @@ const ShowSelectMovie = (props : {fetchMovie: MovieTypes | null}) => {
           </Button>
         </div>
       </section>
-      <ExtendSelectedData fetchMovie={fetchMovie} openContent={openContent} setOpen={(bool) => setOpenContent(bool)} />
+      <div ref={extendRef}>
+        <ExtendSelectedData  fetchMovie={fetchMovie} openContent={openContent} setOpen={(bool) => setOpenContent(bool)} />
+      </div>
     </>
   );
 };
@@ -74,15 +81,13 @@ const ExtendSelectedData = ({
               {
                   fetchMovie?.actors.map(
                       (actor) => (
-                          <>
-                            <div className="w-full flex items-center gap-5 flex-wrap">
-                                <img src={`http://localhost:8000${actor.actor_img}`} className="w-24 h-24 rounded-[50%] object-cover" alt={actor.actor_name} />
-                                <div>
-                                <p className="text-[18px]">{actor.actor_name}</p>
-                                <p className="font-normal">{actor.performed_as}</p>
-                                </div>
+                        <div key={actor.actor_name} className="w-full flex items-center gap-5 flex-wrap">
+                            <img src={`http://localhost:8000${actor.actor_img}`} className="w-24 h-24 rounded-[50%] object-cover" alt={actor.actor_name} />
+                            <div>
+                            <p className="text-[18px]">{actor.actor_name}</p>
+                            <p className="font-normal">{actor.performed_as}</p>
                             </div>
-                          </>
+                        </div>
                       )
                   )
               }
