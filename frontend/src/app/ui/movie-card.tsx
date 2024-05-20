@@ -67,11 +67,11 @@ const MovieCard = (props: { data: MovieTypes }) => {
                   data.show_time_mins % 60 + "นาที"
               }
           </p>
-          <Button className="absolute desktop:text-[18px] hover:bg-tertiary transition-all laptop:text-[15px] w-[85%] phone:text-[10px] bottom-3 phone:py-2 px-5 py-3 rounded-lg flex justify-center font-bold bg-quaternary">
-            <Link href='/movie/[id]' as={`/movie/${data.id}`}>
-              Select this movie
-            </Link>
-          </Button>
+          <Link href='/movie/[id]' as={`/movie/${data.id}`}>
+            <Button className="absolute desktop:text-[18px] hover:bg-tertiary transition-all laptop:text-[15px] w-[85%] phone:text-[10px] bottom-3 phone:py-2 px-5 py-3 rounded-lg flex justify-center font-bold bg-quaternary">
+                Select this movie
+            </Button>
+          </Link>
           
         </div>
       </div>

@@ -25,13 +25,13 @@ const SelectMovie = () => {
           aria-label="Close"
           variant="underlined"
           placeholder="Search Movies"
-          className="max-w-xl rounded-md tablet:w-4/6 tablet:h-4/5 desktop:text-[20px] bg-white border-2 border-primary px-5 py-[5px] text-black z-1"
+          className="max-w-xl rounded-md tablet:w-4/6 text-primary tablet:h-4/5 desktop:text-[20px] bg-white border-2 border-primary px-5 py-[5px] z-1"
           defaultItems={allMovie}
           onSelectionChange={(value) => router.push(`/movie/${value}`)}
         >
           {(movie) => (
             <AutocompleteItem
-              className="text-white z-1 "
+              className="text-primary z-1"
               key={movie.id}
               value={movie.id}
             >

@@ -31,7 +31,7 @@ const Movie = () => {
     // }, []);
 
     return (
-        <main className="flex flex-col items-center w-full gap-[30px]">
+        <main className="flex flex-col items-center w-full gap-[30px] relative">
             <h1 className="font-extrabold laptop:text-[40px] desktop:text-[48px] phone:text-[18px] tablet:text-[22px]">{type}</h1>
             <div className="navmovie-desktop navmovie-laptop font-bold max-h-[200px] flex flex-col items-center gap-[6%] phone:gap-2 w-full px-[15%]">
                 <NavMovie type={type} setType={(type: string) => setType(type)} />
