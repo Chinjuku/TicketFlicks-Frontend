@@ -1,10 +1,12 @@
 "use client";
-import { SeatTypes } from "@/types/seat";
+import { SeatPriceTypes, SeatTypes } from "@/types/seat";
 import clsx from "clsx";
 import React, { useEffect, useRef, useState } from "react";
 import { PiArmchairFill } from "react-icons/pi";
 import { SelectSeat } from "@/components/SelectedMovie/select-seat";
 import { MovieTypes } from "@/types/movie";
+import { FaCheck } from "react-icons/fa";
+import {fetchPriceSeat} from "@/api/get/seat-data"
 
 const rows = ["A", "B", "C", "D", "E"];
 const seatsPerRow = 11;
@@ -16,6 +18,8 @@ export const ShowTheatreSelected = (props: {
   const { fetchSeat, fetchMovie } = props;
   const seatRef = useRef<HTMLDivElement>(null);
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
+  const [response, setResponse] = useState<SeatPriceTypes | null | undefined>()
+  const theatre = fetchSeat[0]?.theatre.theatre_num ? fetchSeat[0].theatre.theatre_num : null
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -38,6 +42,15 @@ export const ShowTheatreSelected = (props: {
     }
   }, [selectedSeats]);
 
+  useEffect(() => {
+    const fetchAll = async () => {
+        if (selectedSeats.length === 0) return setResponse(null);
+        const res = await fetchPriceSeat(selectedSeats)
+        setResponse(res)
+    }
+    fetchAll()
+  }, [selectedSeats])
+
   const handleSelectSeat = (seat_num: string) => {
     setSelectedSeats((prevSeats) => {
       if (prevSeats.includes(seat_num)) {
@@ -47,8 +60,6 @@ export const ShowTheatreSelected = (props: {
       }
     });
   };
-
-  const theatre = fetchSeat[0].theatre.theatre_num;
 
   return (
     <div ref={seatRef} className="w-full h-full flex my-[4%] gap-10">
@@ -63,32 +74,40 @@ export const ShowTheatreSelected = (props: {
           {fetchSeat.map((seat, index) => {
             const rowNumber = Math.floor(index / seatsPerRow);
             const isRowStart = index % seatsPerRow === 0;
-            const isSelected = selectedSeats.includes(seat.seat_num);
+            const isSelected = selectedSeats.includes(seat.id);
 
             return (
-              <React.Fragment key={index}>
+              <React.Fragment key={index+seat.seat_num}>
                 {isRowStart && (
                   <div className="col-span-1 flex items-center justify-center w-5/5">
                     <p className="font-bold text-[18px]">{rows[rowNumber]}</p>
                   </div>
                 )}
                 <button
-                  onClick={() => handleSelectSeat(seat.seat_num)}
+                  onClick={() => handleSelectSeat(seat.id)}
                   className="col-span-1 w-full py-3 flex items-center justify-center"
                 >
-                  <PiArmchairFill
+                    {
+                        isSelected ? (
+                            <div className="bg-green-500 rounded-[50%] p-2">
+                                <FaCheck className="w-4 h-4"/>
+                            </div>
+                        ) : (
+                            <PiArmchairFill
                     className={clsx("w-8 h-8", {
-                      "fill-quaternary": seat.type === "normal" && !isSelected,
-                      "fill-secondary": seat.type === "vip" && !isSelected,
-                      "fill-green-500": isSelected,
+                      "fill-quaternary": seat.type === "normal",
+                      "fill-secondary": seat.type === "vip"
                     })}
                   />
+                        )
+                    }
+                  
                 </button>
               </React.Fragment>
             );
           })}
           {[...Array(12)].map((_, index) => {
-            if (index === 0) return <div key={index}></div>;
+            if (index === 0) return <div key={index+13}></div>;
             return (
               <p
                 key={index}
@@ -100,7 +119,7 @@ export const ShowTheatreSelected = (props: {
           })}
         </div>
       </div>
-      <SelectSeat fetchSeat={fetchSeat} fetchMovie={fetchMovie} selectedSeats={selectedSeats} />
+      <SelectSeat fetchSeat={fetchSeat} fetchMovie={fetchMovie} selectedSeats={response} />
     </div>
   );
 };

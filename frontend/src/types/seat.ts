@@ -7,3 +7,8 @@ export type SeatTypes = {
     isIdle: boolean
     theatre: Theatre
 }
+
+export type SeatPriceTypes = {
+    seats : SeatTypes[]
+    allprice: number
+}

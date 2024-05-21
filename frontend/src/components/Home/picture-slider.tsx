@@ -2,10 +2,11 @@
 import "@madzadev/image-slider/dist/index.css";
 // @ts-ignore
 import Slider from "@madzadev/image-slider";
+import Next from "@public/next.png"
 
 const SliderPicture = () => {
     const images = [
-        { url: "https://picsum.photos/seed/a/1600/900" },
+        { url: "Next" },
         { url: "https://picsum.photos/seed/b/1920/1080" },
         { url: "https://picsum.photos/seed/c/1366/768" },
       ];

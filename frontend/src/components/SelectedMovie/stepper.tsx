@@ -1,6 +1,6 @@
 "use client";
 // @ts-ignore
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Progress } from "@nextui-org/progress";
 import { FaCheck } from "react-icons/fa";
 import clsx from "clsx";
@@ -11,36 +11,34 @@ type StepperProps = {
   selectTheatre: string | undefined;
 };
 
-export const Stepper = (props: StepperProps) => {
+const Stepper = (props: StepperProps) => {
   const [selectMovieValue, setSelectMovieValue] = useState<number>(0);
   const [selectTheatreValue, setSelectTheatreValue] = useState<number>(0);
   const [selectSeatValue, setSelectSeatValue] = useState<number>(0);
   const { selectMovie, selectTheatre } = props;
-  const searchParams = useSearchParams()
-  const { replace } = useRouter()
-  const pathname = usePathname()
+  const searchParams = useSearchParams();
+  const { replace } = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== "undefined") {
       const savedSeats = localStorage.getItem("seats");
       if (savedSeats) {
-        if (JSON.parse(savedSeats).length > 0) {
+        const parsedSeats = JSON.parse(savedSeats);
+        if (parsedSeats.length > 0) {
           setSelectTheatreValue(1);
-          const timeoutId = setTimeout(() => {
-            setSelectSeatValue(0.5);
-          }, 500);
-          console.log(JSON.parse(savedSeats))
-          return () => clearTimeout(timeoutId);
-        } 
+          setSelectSeatValue(0.5);
+        }
       }
+      console.log(savedSeats)
     }
-  }, [])
+  }, [localStorage.getItem('seats')]);
 
   useEffect(() => {
     if (selectMovie) {
       setSelectMovieValue(0.5);
     }
-    if (selectTheatre && typeof selectTheatre === 'string') {
+    if (selectTheatre && typeof selectTheatre === "string") {
       setSelectMovieValue(1);
       const timeoutId = setTimeout(() => {
         setSelectTheatreValue(0.5);
@@ -74,9 +72,8 @@ export const Stepper = (props: StepperProps) => {
     const params = new URLSearchParams(searchParams);
     if (index === 0) {
       params.delete("theatre");
-      replace(`${pathname}`)
+      replace(`${pathname}`);
     }
-    
   };
 
   return (
@@ -97,7 +94,8 @@ export const Stepper = (props: StepperProps) => {
                   "w-8 h-8 rounded-[50%] flex items-center justify-center hover:bg-tertiary transition-background",
                   {
                     "bg-secondary": item.value !== 0,
-                    "border-spacing-2 border-separate border-2 border-quaternary bg-white cursor-default": item.value === 0,
+                    "border-spacing-2 border-separate border-2 border-quaternary bg-white cursor-default":
+                      item.value === 0,
                   }
                 )}
               >
@@ -126,3 +124,4 @@ export const Stepper = (props: StepperProps) => {
   );
 };
 
+export default Stepper;

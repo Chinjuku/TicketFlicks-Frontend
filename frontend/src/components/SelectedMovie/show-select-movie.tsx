@@ -6,6 +6,7 @@ import clsx from "clsx";
 import moment from "moment";
 import { Button } from "@nextui-org/button";
 import React, { useState, useRef, useEffect } from "react";
+import Link from "next/link";
 
 const ShowSelectMovie = (props : {fetchMovie: MovieTypes | null}) => {
   const { fetchMovie } = props
@@ -40,6 +41,11 @@ const ShowSelectMovie = (props : {fetchMovie: MovieTypes | null}) => {
             })}
           </p>
           <p>Rating : {fetchMovie?.rating}/10</p>
+          <Link href="review/[id]" as={`/review/${fetchMovie?.id}`}>
+            <Button className="bg-secondary">
+              REVIEW MOVIE
+            </Button>
+          </Link>
           <Button className="bg-quaternary" onClick={() => setOpenContent(true)}>
             VIEW MORE DETAILS
           </Button>

@@ -1,6 +1,5 @@
 import SelectMovie from "@/app/ui/select-movie";
 import React, { Suspense } from "react";
-import { Stepper } from "@/components/SelectedMovie/stepper";
 import { fetchSelectMovie } from "@/api/get/select-movie-data";
 import { SelectTheatre } from "@/components/SelectedMovie/select-theatre";
 import ShowSelectMovie from "@/components/SelectedMovie/show-select-movie";
@@ -11,6 +10,8 @@ import moment from "moment";
 import { fetchTheatre } from "@/api/get/theatre-data";
 import { fetchSeat } from "@/api/get/seat-data";
 import clsx from "clsx";
+
+const Stepper = React.lazy(() =>import("@/components/SelectedMovie/stepper"))
 
 const Movie = async ({
   params,
@@ -29,16 +30,19 @@ const Movie = async ({
     : moment(new Date()).format("YYYY-MM-DD");
   const fetchMovieData = await fetchSelectMovie(id);
   const fetchTheatreData = await fetchTheatre(id, date);
-  const fetchSeatData = await fetchSeat(theatre);
+  const fetchSeatData = theatre ? await fetchSeat(theatre) : [];
+
   return (
     <main>
       <Suspense fallback={<SkeletonSelectMovie />}>
         <SelectMovie />
         <ShowSelectMovie fetchMovie={fetchMovieData} />
       </Suspense>
-      <div className="flex flex-col items-center w-full mt-10 sticky top-[100px]">
-        <Stepper selectMovie={id} selectTheatre={theatre} />
-      </div>
+      <Suspense fallback={<div>Loaddd</div>}>
+        <div className="flex flex-col items-center w-full mt-10 sticky top-[100px]">
+          <Stepper selectMovie={id} selectTheatre={theatre} />
+        </div>
+      </Suspense>
       <div
         className={clsx("my-[4%]", {
           hidden: fetchSeatData.length > 0,
