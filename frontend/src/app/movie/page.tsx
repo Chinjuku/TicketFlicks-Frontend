@@ -15,7 +15,6 @@ const Movie = () => {
     const triggerRef = useRef<HTMLDivElement>(null)
     const endTriggerRef = useRef<HTMLDivElement>(null)
     const [type, setType] = useState<string>("NOW SHOWING")
-
     // useEffect(() => {
     //     if (triggerRef.current && endTriggerRef.current) {
     //         gsap.to(triggerRef.current, {

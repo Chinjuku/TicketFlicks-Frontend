@@ -1,5 +1,4 @@
 "use client";
-
 import "@/styles/index.css";
 import { useEffect, useState } from "react";
 import Navbar from "@/app/ui/navbar";
@@ -29,11 +28,11 @@ export default function ClientRootLayout({ children }: { children: React.ReactNo
       localStorage.setItem("theme", newTheme);
     }, [isSelected]);
     return (
-      <div className={`${theme} bg-gradient-to-b from-black via-primary to-black text-white`}>
-        <ScrollWatcher />
-        <Navbar />
-        <SwitchToggle isSelected={isSelected} setIsSelected={(isSelected) => setIsSelected(isSelected)} />
-        {children}
-      </div>
+        <div className={`${theme} bg-gradient-to-b from-black via-primary to-black text-white`}>
+          <ScrollWatcher />
+          <Navbar />
+          <SwitchToggle isSelected={isSelected} setIsSelected={(isSelected) => setIsSelected(isSelected)} />
+          {children}
+        </div>
     );
   }

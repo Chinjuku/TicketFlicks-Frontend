@@ -1,12 +1,13 @@
 "use client";
 import { SeatPriceTypes, SeatTypes } from "@/types/seat";
 import clsx from "clsx";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, useContext } from "react";
 import { PiArmchairFill } from "react-icons/pi";
 import { SelectSeat } from "@/components/SelectedMovie/select-seat";
 import { MovieTypes } from "@/types/movie";
 import { FaCheck } from "react-icons/fa";
 import {fetchPriceSeat} from "@/api/get/seat-data"
+import { seatContext } from "@/utils/seatContext";
 
 const rows = ["A", "B", "C", "D", "E"];
 const seatsPerRow = 11;
@@ -20,6 +21,7 @@ export const ShowTheatreSelected = (props: {
   const [selectedSeats, setSelectedSeats] = useState<string[]>([]);
   const [response, setResponse] = useState<SeatPriceTypes | null | undefined>()
   const theatre = fetchSeat[0]?.theatre.theatre_num ? fetchSeat[0].theatre.theatre_num : null
+  const { setSeat, setPrice } = useContext(seatContext)
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -47,6 +49,8 @@ export const ShowTheatreSelected = (props: {
         if (selectedSeats.length === 0) return setResponse(null);
         const res = await fetchPriceSeat(selectedSeats)
         setResponse(res)
+        setPrice(res?.allprice)
+        setSeat(res?.seats)
     }
     fetchAll()
   }, [selectedSeats])

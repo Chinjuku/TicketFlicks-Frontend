@@ -1,10 +1,11 @@
 "use client";
 // @ts-ignore
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import { Progress } from "@nextui-org/progress";
 import { FaCheck } from "react-icons/fa";
 import clsx from "clsx";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { seatContext } from "@/utils/seatContext";
 
 type StepperProps = {
   selectMovie: string | null;
@@ -19,20 +20,21 @@ const Stepper = (props: StepperProps) => {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
   const pathname = usePathname();
+  const { seat, price } = useContext(seatContext)
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      const savedSeats = localStorage.getItem("seats");
-      if (savedSeats) {
-        const parsedSeats = JSON.parse(savedSeats);
-        if (parsedSeats.length > 0) {
-          setSelectTheatreValue(1);
-          setSelectSeatValue(0.5);
-        }
-      }
-      console.log(savedSeats)
+    console.log(price)
+    if (price !== 0 || undefined) {
+      setSelectTheatreValue(1);
+      const timeoutId = setTimeout(() => {
+        setSelectSeatValue(0.5);
+      }, 500);
+      return () => clearTimeout(timeoutId);
+    } else {
+      setSelectSeatValue(0);
+      setSelectTheatreValue(0.5);
     }
-  }, [localStorage.getItem('seats')]);
+  }, [seat, price])
 
   useEffect(() => {
     if (selectMovie) {

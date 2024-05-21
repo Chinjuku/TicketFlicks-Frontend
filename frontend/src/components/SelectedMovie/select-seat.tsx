@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import { MovieTypes } from "@/types/movie";
 import { SeatPriceTypes, SeatTypes } from "@/types/seat";
 import clsx from "clsx";
+import Link from "next/link";
 
 export const SelectSeat = (props: {
   fetchSeat: SeatTypes[];
@@ -45,9 +46,11 @@ export const SelectSeat = (props: {
         </p>
         <h3>Price</h3>
         <p>{selectedSeats?.allprice ? selectedSeats?.allprice : 0} THB</p>
-        <Button onClick={() => handleClick(selectedSeats?.allprice, selectedSeats?.seats)} className={clsx({
-            "opacity-50 cursor-not-allowed": !selectedSeats?.allprice
-        })}>Continue</Button>
+        <Link href="/payment">
+          <Button onClick={() => handleClick(selectedSeats?.allprice, selectedSeats?.seats)} className={clsx({
+              "opacity-50 cursor-not-allowed": !selectedSeats?.allprice
+          })}>Continue</Button>
+        </Link>
       </div>
     </div>
   );
