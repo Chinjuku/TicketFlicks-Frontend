@@ -4,7 +4,7 @@ import ManyMovie from "@/components/Home/movies";
 import "@/styles/home.css"
 import SelectMovie from "@/app/ui/select-movie";
 import { Suspense } from "react";
-import { SkeletonMovieCard, SkeletonTop5Card } from "./ui/Loading/skeleton-movie-card";
+import { SkeletonMovieCard, SkeletonTop5Card } from "@/app/ui/Loading/skeleton-movie-card";
 import { TopFiveMovies } from "@/components/Home/topfive-movies";
 
 export default async function Home() {

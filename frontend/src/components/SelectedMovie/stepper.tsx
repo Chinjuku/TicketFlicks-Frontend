@@ -23,16 +23,13 @@ const Stepper = (props: StepperProps) => {
   const { seat, price } = useContext(seatContext)
 
   useEffect(() => {
-    console.log(price)
-    if (price !== 0 || undefined) {
+    if (price === undefined) return;
+    else if (price > 0) {
       setSelectTheatreValue(1);
       const timeoutId = setTimeout(() => {
         setSelectSeatValue(0.5);
       }, 500);
       return () => clearTimeout(timeoutId);
-    } else {
-      setSelectSeatValue(0);
-      setSelectTheatreValue(0.5);
     }
   }, [seat, price])
 
@@ -74,7 +71,12 @@ const Stepper = (props: StepperProps) => {
     const params = new URLSearchParams(searchParams);
     if (index === 0) {
       params.delete("theatre");
+      setSelectSeatValue(0);
+      setSelectTheatreValue(0.5);
       replace(`${pathname}`);
+    } else if (index === 1) {
+      setSelectSeatValue(0);
+      setSelectTheatreValue(0.5);
     }
   };
 

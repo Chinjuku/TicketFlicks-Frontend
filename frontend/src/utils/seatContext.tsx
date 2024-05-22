@@ -23,10 +23,10 @@ interface SeatProviderProps {
 export const SeatProvider: React.FC<SeatProviderProps> = ({ children }) => {
     const [seat, setSeat] = useState<SeatTypes[] | undefined>([]);
     const [price, setPrice] = useState<number | undefined>(0);
-    useEffect(() => {
-        console.log(seat)
-        console.log(price)
-    }, [seat, price])
+    // useEffect(() => {
+    //     console.log(seat)
+    //     console.log(price)
+    // }, [seat, price])
     return (
         <seatContext.Provider value={{ seat, setSeat, price, setPrice }}>
             {children}

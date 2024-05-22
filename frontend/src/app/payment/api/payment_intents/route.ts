@@ -2,12 +2,7 @@
 
 import { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest, NextResponse } from 'next/server';
-import Stripe from 'stripe';
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  typescript: true,
-  apiVersion: '2024-04-10',
-});
+import { stripe } from '@/utils/stripe-secret';
 
 export async function POST(req: NextRequest, res: NextResponse) {
     // return NextResponse.json({ hello : "world" }, { status: 200 });
@@ -16,12 +11,12 @@ export async function POST(req: NextRequest, res: NextResponse) {
 
     try {
       const paymentIntent = await stripe.paymentIntents.create({
-        currency: "EUR",
-        amount: amount,
+        currency: "THB",
+        amount: amount * 100,
         automatic_payment_methods: { enabled: true },
       });
 
-      return NextResponse.json({ clientSecret: paymentIntent.client_secret });
+      return NextResponse.json({ id: paymentIntent.id, clientSecret: paymentIntent.client_secret });
     } catch (error) {
       return NextResponse.json({ error: "error" });
     }

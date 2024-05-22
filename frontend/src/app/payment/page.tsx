@@ -1,27 +1,25 @@
 "use client";
 import React, { useState, useEffect, useMemo } from "react";
-import { loadStripe, Stripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import axios from "axios";
 import PaymentForm from "@/components/Payment/payment-form";
 import { SeatPriceTypes } from "@/types/seat";
 import { fetchPriceSeat } from "@/api/get/seat-data";
-
-const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
-);
+import { appearance, stripePromise } from "@/app/payment/data";
 
 const Page = () => {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [selectSeat, setSelectSeat] = useState<SeatPriceTypes | null>();
   const [getSeats, setSeats] = useState<string[]>();
-
+  const [clientId, setClientId] = useState<string | null>(null);
+  
   useEffect(() => {
     const createPaymentIntent = async () => {
       try {
-        const response = await axios.post("/api/payment_intents", {
-          amount: selectSeat?.allprice,
+        const response = await axios.post("/payment/api/payment_intents", {
+          amount: selectSeat?.allprice
         });
+        setClientId(response.data.id)
         setClientSecret(response.data.clientSecret);
       } catch (error) {
         console.error("Error creating PaymentIntent:", error);
@@ -52,8 +50,8 @@ const Page = () => {
       {!clientSecret ? (
         <div>Loading...</div>
       ) : (
-        <Elements stripe={stripePromise} options={{ clientSecret }}>
-          <PaymentForm selectSeat={selectSeat} />
+        <Elements stripe={stripePromise} options={{ clientSecret, appearance }}>
+          <PaymentForm selectSeat={selectSeat} clientSecret={clientSecret} clientId={clientId} />
         </Elements>
       )}
     </div>
