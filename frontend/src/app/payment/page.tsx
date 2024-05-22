@@ -1,58 +1,101 @@
 "use client";
-import { useContext } from "react";
+import React, { useState, useEffect, useMemo } from "react";
+import { loadStripe, Stripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
-import PaymentForm from "@/components/SelectedMovie/payments";
-// Make sure to call `loadStripe` outside of a component’s render to avoid
-// recreating the `Stripe` object on every render.
-import { seatContext } from "@/utils/seatContext";
+import axios from "axios";
+import PaymentForm from "@/components/Payment/payment-form";
+import { SeatPriceTypes } from "@/types/seat";
+import { fetchPriceSeat } from "@/api/get/seat-data";
+
 const stripePromise = loadStripe(
-  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+  process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY as string
 );
 
-export default function Home() {
-  
-  return (
-    <Elements stripe={stripePromise}>
-      <PaymentForm />
-    </Elements>
-  );
-}
+const Page = () => {
+  const [clientSecret, setClientSecret] = useState<string | null>(null);
+  const [selectSeat, setSelectSeat] = useState<SeatPriceTypes | null>();
+  const [getSeats, setSeats] = useState<string[]>();
 
-// PaymentPage.tsx
-// import React, { useState, useEffect } from 'react';
-// import { Elements } from '@stripe/react-stripe-js';
-// import { loadStripe, Stripe } from '@stripe/stripe-js';
-// import CheckoutForm from '@/components/SelectedMovie/payments'; // ตรวจสอบให้แน่ใจว่าได้สร้างและนำเข้า CheckoutForm
+  useEffect(() => {
+    const createPaymentIntent = async () => {
+      try {
+        const response = await axios.post("/api/payment_intents", {
+          amount: selectSeat?.allprice,
+        });
+        setClientSecret(response.data.clientSecret);
+      } catch (error) {
+        console.error("Error creating PaymentIntent:", error);
+      }
+    };
+    createPaymentIntent();
+  }, [selectSeat?.allprice]);
+
+  useEffect(() => {
+    const getSeat = localStorage.getItem("seats");
+    if (getSeat) {
+      const parsedSeats = JSON.parse(getSeat);
+      setSeats(parsedSeats);
+    }
+  }, []);
+
+  useMemo(() => {
+    const fetchSeats = async () => {
+      if (!getSeats) return;
+      const res = await fetchPriceSeat(getSeats);
+      setSelectSeat(res);
+    };
+    fetchSeats();
+  }, [getSeats]);
+
+  return (
+    <div>
+      {!clientSecret ? (
+        <div>Loading...</div>
+      ) : (
+        <Elements stripe={stripePromise} options={{ clientSecret }}>
+          <PaymentForm selectSeat={selectSeat} />
+        </Elements>
+      )}
+    </div>
+  );
+};
+
+export default Page;
+
+//// Payment For Subscriptions ????
+// import React from 'react';
+// import { loadStripe } from '@stripe/stripe-js';
 // import axios from 'axios';
 
-// const stripePromise: Promise<Stripe | null> = loadStripe('pk_test_51PIsCQ2LBrdE2noaYvCIJIpStYVVKcofVcHG9P0wYeQvKqWGmztx2jpUL6aOxPnaXhcTS1qH6eG7KL130M125sV000RZbGCPf0');
-
-// const PaymentPage: React.FC = () => {
-//   const [clientSecret, setClientSecret] = useState<string | null>(null);
-
-//   useEffect(() => {
-//     const postStripe = async () => {
-//       // http://localhost:8000/api/create-payment-intent/
-//       const response = await axios.post('/payment/api', { amount: 10 });
-//       setClientSecret(response.data.clientSecret);
+// const stripePromise = loadStripe(
+//   process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!
+// );
+// export default function PreviewPage() {
+//   React.useEffect(() => {
+//     const query = new URLSearchParams(window.location.search);
+//     if (query.get('success')) {
+//       console.log('Order placed! You will receive an email confirmation.');
 //     }
-//     postStripe()
-//   }, []);
 
-//   const options = {
-//     clientSecret: clientSecret || '',
-//   };
+//     if (query.get('canceled')) {
+//       console.log('Order canceled -- continue to shop around and checkout when you’re ready.');
+//     }
+//   }, []);
+//   const onSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+//     event.preventDefault();
+//     const response = await axios.post("/api/subscriptions")
+//     const session = response.data;
+//     const stripe = await stripePromise;
+//     await stripe?.redirectToCheckout({ sessionId: session.id });
+//   }
 
 //   return (
-//     clientSecret ? (
-//       <Elements stripe={stripePromise} options={options}>
-//         <CheckoutForm />
-//       </Elements>
-//     ) : (
-//       <div>Loading...</div>
-//     )
+//     <form onSubmit={onSubmit} method="POST">
+//       <section>
+//         <button type="submit" role="link">
+//           Checkout
+//         </button>
+//       </section>
+//     </form>
 //   );
-// };
-
-// export default PaymentPage;
+// }

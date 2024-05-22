@@ -19,7 +19,7 @@ export default function RootLayout({
       className={`${lato.className} scroll-smooth scroll-pt-[20%]`}
       style={lato.style}
     >
-      <body className="desktop:pt-[196px] laptop:pt-[140px] tablet:pt-[150px] phone:pt-[97px] overflow-x-hidden h-full">
+      <body className="desktop:pt-[196px] laptop:pt-[140px] tablet:pt-[150px] phone:pt-[97px] overflow-x-hidden h-screen">
         <SeatProvider>
           <ClientRootLayout>{children}</ClientRootLayout>
         </SeatProvider>
