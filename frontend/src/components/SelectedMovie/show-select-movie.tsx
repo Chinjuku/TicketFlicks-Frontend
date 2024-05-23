@@ -19,16 +19,16 @@ const ShowSelectMovie = (props : {fetchMovie: MovieTypes | null}) => {
   }, [])
   return (
     <>
-      <section className="flex gap-[7%] laptop:h-[500px]">
-        <div className="w-1/2 flex items-center justify-end">
+      <section className="flex phone:flex-wrap gap-[7%] phone:gap-6 phone:p-[10%] laptop:h-[500px] tablet:h-[500px] h-full">
+        <div className="w-1/2 grow flex items-center justify-end phone:justify-center">
           <img
-            className="w-56 object-cover"
+            className="w-56 phone:w-40 object-cover"
             src={`http://localhost:8000${fetchMovie?.movie_img}`}
             alt={fetchMovie?.movie_name}
           />
         </div>
-        <div className="w-1/2 flex flex-col items-start justify-center gap-5">
-          <h1 className=" text-[30px]">{fetchMovie?.movie_name}</h1>
+        <div className="w-1/2 grow flex h-full flex-col items-start justify-center gap-5">
+          <h1 className="phone:text-[28px] font-bold text-[30px]">{fetchMovie?.movie_name}</h1>
           <p>
             Genre :{" "}
             {fetchMovie?.categories.map((category, index) => {
@@ -41,14 +41,16 @@ const ShowSelectMovie = (props : {fetchMovie: MovieTypes | null}) => {
             })}
           </p>
           <p>Rating : {fetchMovie?.rating}/10</p>
-          <Link href="review/[id]" as={`/review/${fetchMovie?.id}`}>
-            <Button className="bg-secondary">
-              REVIEW MOVIE
+          <div className="flex-wrap gap-5 flex">
+            <Link href="review/[id]" as={`/review/${fetchMovie?.id}`} className="grow w-1/2">
+              <Button className="bg-secondary w-full">
+                REVIEW MOVIE
+              </Button>
+            </Link>
+            <Button className="bg-quaternary grow w-1/2" onClick={() => setOpenContent(true)}>
+              VIEW MORE DETAILS
             </Button>
-          </Link>
-          <Button className="bg-quaternary" onClick={() => setOpenContent(true)}>
-            VIEW MORE DETAILS
-          </Button>
+          </div>
         </div>
       </section>
       <div ref={extendRef}>

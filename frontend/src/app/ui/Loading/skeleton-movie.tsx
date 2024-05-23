@@ -4,7 +4,7 @@ import React from 'react'
 
 export const SkeletonMovie = () => {
   return (
-    <div className="dark grid grid-cols-3 justify-center h-[80%] flex-wrap desktop:gap-10 laptop:gap-[25px] tablet:gap-[25px] phone:gap-[20px]">
+    <div className="dark grid grid-cols-3 phone:grid-cols-2 justify-center h-[80%] flex-wrap desktop:gap-10 laptop:gap-[25px] tablet:gap-[25px] phone:gap-[20px]">
         {[...Array(9)].map((_, index) => (
                 <Card
                   className="rounded-lg desktop:w-[270px] bg-default300 desktop:h-[380px] phone:w-[140px] phone:h-[200px] w-[200px] h-[300px] space-y-5 p-4"

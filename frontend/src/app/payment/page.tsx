@@ -5,14 +5,15 @@ import axios from "axios";
 import PaymentForm from "@/components/Payment/payment-form";
 import { SeatPriceTypes } from "@/types/seat";
 import { fetchPriceSeat } from "@/api/get/seat-data";
-import { appearance, stripePromise } from "@/app/payment/data";
+import { SkeletonPaymentPage } from "@/app/ui/Loading/skeletion-payment";
+import { stripePromise, appearance } from "@/utils/stripe-secret";
 
 const Page = () => {
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [selectSeat, setSelectSeat] = useState<SeatPriceTypes | null>();
   const [getSeats, setSeats] = useState<string[]>();
   const [clientId, setClientId] = useState<string | null>(null);
-  
+
   useEffect(() => {
     const createPaymentIntent = async () => {
       try {
@@ -48,7 +49,9 @@ const Page = () => {
   return (
     <div>
       {!clientSecret ? (
-        <div>Loading...</div>
+        <>
+          <SkeletonPaymentPage/>
+        </>
       ) : (
         <Elements stripe={stripePromise} options={{ clientSecret, appearance }}>
           <PaymentForm selectSeat={selectSeat} clientSecret={clientSecret} clientId={clientId} />

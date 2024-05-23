@@ -71,7 +71,6 @@ export const fetchTopFiveMovie = async (): Promise<MovieTypes[]> => {
     try {
         const res = await axios.get<MovieTypes[]>("http://localhost:8000/api/movie/topfive/")
         if (res.status === 200) {
-            // await new Promise((resolve) => setTimeout(resolve, 2000));
             return res.data;
         } else {
             return [];

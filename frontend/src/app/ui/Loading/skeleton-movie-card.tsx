@@ -8,7 +8,7 @@ export const SkeletonMovieCard = () => {
       {[...Array(4)].map((_, index) => (
         <>
           <div
-            key={index}
+            key={index+100}
             className="overflow-hidden overflow-x-hidden overflow-y-hidden flex flex-wrap mx-[11%] flex-col gap-6 mt-6 w-full my-[60px] tablet:max-w-[600px] laptop:max-w-[1200px] phone:max-w-[350px]"
           >
             <div className="flex justify-between items-center">

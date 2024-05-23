@@ -5,7 +5,7 @@ import { Progress } from "@nextui-org/progress";
 import { FaCheck } from "react-icons/fa";
 import clsx from "clsx";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
-import { seatContext } from "@/utils/seatContext";
+import { seatContext } from "@/context/seatContext";
 
 type StepperProps = {
   selectMovie: string | null;
@@ -20,7 +20,7 @@ const Stepper = (props: StepperProps) => {
   const searchParams = useSearchParams();
   const { replace } = useRouter();
   const pathname = usePathname();
-  const { seat, price } = useContext(seatContext)
+  const { seat, price } = useContext(seatContext);
 
   useEffect(() => {
     if (price === undefined) return;
@@ -31,7 +31,7 @@ const Stepper = (props: StepperProps) => {
       }, 500);
       return () => clearTimeout(timeoutId);
     }
-  }, [seat, price])
+  }, [seat, price]);
 
   useEffect(() => {
     if (selectMovie) {
@@ -81,7 +81,7 @@ const Stepper = (props: StepperProps) => {
   };
 
   return (
-    <div className="flex w-full justify-center max-w-[1200px]">
+    <div className="phone:flex-col items-center flex w-full phone:h-[600px] flex-auto justify-center max-w-[1200px]">
       {stepData.map((item, index) =>
         index === stepData.length - 1 ? (
           <div key={index}>
@@ -90,37 +90,45 @@ const Stepper = (props: StepperProps) => {
             <p>{item.title}</p>
           </div>
         ) : (
-          <div key={index} className="w-1/4">
-            <div className="flex items-center gap-4">
-              <button
-                onClick={() => handleStep(index)}
-                className={clsx(
-                  "w-8 h-8 rounded-[50%] flex items-center justify-center hover:bg-tertiary transition-background",
-                  {
-                    "bg-secondary": item.value !== 0,
-                    "border-spacing-2 border-separate border-2 border-quaternary bg-white cursor-default":
-                      item.value === 0,
-                  }
-                )}
-              >
-                <FaCheck
-                  className={clsx("w-7 rounded-[50%]", {
-                    "text-white": item.value !== 0,
-                    hidden: item.value === 0,
-                  })}
-                />
-              </button>
+          <div key={index} className="w-1/4 phone:w-full phone:h-1/4">
+            <div className="flex phone:flex-col items-center phone:gap-12 gap-4">
+              <div className="">
+                <button
+                  onClick={() => handleStep(index)}
+                  className={clsx(
+                    "w-8 h-8 rounded-[50%] flex items-center justify-center hover:bg-tertiary transition-background",
+                    {
+                      "bg-secondary": item.value !== 0,
+                      "border-spacing-2 border-separate border-2 border-quaternary bg-white cursor-default":
+                        item.value === 0,
+                    }
+                  )}
+                >
+                  <FaCheck
+                    className={clsx("w-7  rounded-[50%]", {
+                      "text-white": item.value !== 0,
+                      hidden: item.value === 0,
+                    })}
+                  />
+                </button>
+                <div>
+                  <p className="mt-3 text-sm text-[#d9d9d9] phone:block hidden">STEP {index + 1}</p>
+                  <p className="phone:block hidden">{item.title}</p>
+                </div>
+              </div>
               <Progress
                 aria-label="Close"
                 size="sm"
                 value={item.value}
                 maxValue={1}
                 color="secondary"
-                className="max-w-md w-4/5"
+                className="max-w-md max-h-sm phone:max-w-sm w-4/5 phone:mt-2 phone:rotate-90"
               />
             </div>
-            <p className="mt-3 text-sm text-[#d9d9d9]">STEP {index + 1}</p>
-            <p>{item.title}</p>
+            <p className="mt-3 text-sm text-[#d9d9d9] phone:hidden">
+              STEP {index + 1}
+            </p>
+            <p className="phone:hidden">{item.title}</p>
           </div>
         )
       )}

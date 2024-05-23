@@ -2,10 +2,8 @@
 import "@/styles/index.css";
 import { useEffect, useState } from "react";
 import Navbar from "@/app/ui/navbar";
-import dynamic from 'next/dynamic';
+import ScrollWatcher from "@/app/ui/scroll-watcher";
 import { SwitchToggle } from "@/app/ui/switch";
-
-const ScrollWatcher = dynamic(() => import('@/app/ui/scroll-watcher'), { ssr: false });
 
 export default function ClientRootLayout({ children }: { children: React.ReactNode }) {
     const [theme, setTheme] = useState("dark"); // Default to dark
@@ -28,11 +26,11 @@ export default function ClientRootLayout({ children }: { children: React.ReactNo
       localStorage.setItem("theme", newTheme);
     }, [isSelected]);
     return (
-        <div className={`${theme} bg-gradient-to-b from-black via-primary to-black text-white`}>
-          <ScrollWatcher />
+        <div id="body" className={`${theme} bg-gradient-to-b from-black via-primary to-black text-white`}>
           <Navbar />
           <SwitchToggle isSelected={isSelected} setIsSelected={(isSelected) => setIsSelected(isSelected)} />
           {children}
+          <ScrollWatcher />
         </div>
     );
   }

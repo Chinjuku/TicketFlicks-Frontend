@@ -35,7 +35,7 @@ const MovieSlider = (props: { id: string; fetchData: MovieTypes[] | null }) => {
           {fetchData &&
             fetchData.map((data: MovieTypes, index) => (
               <>
-                <MovieCard key={`${index}_${id}`} data={data} />
+                <MovieCard key={`${index+100}_${id}`} data={data} />
               </>
             ))}
         </div>

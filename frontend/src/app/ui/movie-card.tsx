@@ -27,7 +27,7 @@ const MovieCard = (props: { data: MovieTypes }) => {
       setFav(favorite.message)
     }
     return (
-      <div id={data.id} className="relative h-full hover:translate-y-2 transition-all">
+      <div key={`1${data.id}1`} id={data.id} className="relative h-full hover:translate-y-2 transition-all">
         <img
             src={`http://localhost:8000${data.movie_img}`}
             className="desktop:w-[270px] desktop:h-[380px] w-[200px] h-[300px] phone:w-[140px] phone:h-[200px] object-cover"

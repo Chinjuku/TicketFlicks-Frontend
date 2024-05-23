@@ -7,7 +7,8 @@ import { SelectSeat } from "@/components/SelectedMovie/select-seat";
 import { MovieTypes } from "@/types/movie";
 import { FaCheck } from "react-icons/fa";
 import {fetchPriceSeat} from "@/api/get/seat-data"
-import { seatContext } from "@/utils/seatContext";
+import { seatContext } from "@/context/seatContext";
+import { IoPersonCircleSharp } from "react-icons/io5";
 
 const rows = ["A", "B", "C", "D", "E"];
 const seatsPerRow = 11;
@@ -64,6 +65,11 @@ export const ShowTheatreSelected = (props: {
       }
     });
   };
+  const sortedSeats = [...fetchSeat].sort((a, b) => {
+    if (a.seat_num < b.seat_num) return -1;
+    if (a.seat_num > b.seat_num) return 1;
+    return 0;
+  });
 
   return (
     <div ref={seatRef} className="w-full h-full flex my-[4%] gap-10">
@@ -75,7 +81,7 @@ export const ShowTheatreSelected = (props: {
           <p>SCREEN</p>
         </div>
         <div className="grid grid-cols-12">
-          {fetchSeat.map((seat, index) => {
+          {sortedSeats.map((seat, index) => {
             const rowNumber = Math.floor(index / seatsPerRow);
             const isRowStart = index % seatsPerRow === 0;
             const isSelected = selectedSeats.includes(seat.id);
@@ -87,6 +93,8 @@ export const ShowTheatreSelected = (props: {
                     <p className="font-bold text-[18px]">{rows[rowNumber]}</p>
                   </div>
                 )}
+                {
+                  seat.isIdle ?
                 <button
                   onClick={() => handleSelectSeat(seat.id)}
                   className="col-span-1 w-full py-3 flex items-center justify-center"
@@ -106,7 +114,11 @@ export const ShowTheatreSelected = (props: {
                         )
                     }
                   
-                </button>
+                </button> : 
+                <div className="flex items-center justify-center mb-1">
+                  <IoPersonCircleSharp className="w-8 h-8 text-gray-300"/>
+                </div>
+              } 
               </React.Fragment>
             );
           })}

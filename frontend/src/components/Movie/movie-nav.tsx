@@ -1,7 +1,6 @@
-
 import { Button } from '@nextui-org/button'
 import React from 'react'
-import { types } from '@/app/movie/data'
+import { types } from '@/utils/movie-data'
 
 interface MovieNavType {
     type: string | null

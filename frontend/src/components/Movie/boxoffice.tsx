@@ -1,9 +1,19 @@
 import Image from "next/image";
 import { fetchTopFiveMovie } from "@/api/get/movie-data";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { MovieTypes } from "@/types/movie";
+import { SkeletonTop5BoxOffice } from "@/app/ui/Loading/skeleton-movie";
 
-const Top5BoxOffice = async () => {
-  const topfive_movies = await fetchTopFiveMovie();
+const Top5BoxOffice = () => {
+  const [topfive_movies, setTopFiveMovies] = useState<MovieTypes[] | null>(null)
+  useEffect(() => {
+    const fetchData = async () => {
+      const res = await fetchTopFiveMovie();
+      setTopFiveMovies(res);
+    }
+    fetchData()
+  }, [])
+  if (!topfive_movies) return <SkeletonTop5BoxOffice />
   return (
     <div className="top_five_box relative border-l-3 border-e-3 border-b-3 border-white flex justify-center w-full px-[15px] py-10">
       <div className="h-[2px] bg-white w-1/5 absolute top-0 left-0"></div>
@@ -12,7 +22,7 @@ const Top5BoxOffice = async () => {
         Top 5 Box Office
       </h1>
       <div className="flex  justify-center flex-col gap-6">
-        {topfive_movies.map((movie) => {
+        {topfive_movies?.map((movie) => {
           return (
             <div
               key={movie.id}

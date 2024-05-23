@@ -6,7 +6,7 @@ import Next from "@public/next.png"
 
 const SliderPicture = () => {
     const images = [
-        { url: "Next" },
+        { url: "https://picsum.photos/seed/b/1920/1080" },
         { url: "https://picsum.photos/seed/b/1920/1080" },
         { url: "https://picsum.photos/seed/c/1366/768" },
       ];
