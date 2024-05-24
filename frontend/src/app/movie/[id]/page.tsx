@@ -1,14 +1,14 @@
 import SelectMovie from "@/app/ui/select-movie";
 import React, { Suspense } from "react";
-import { fetchSelectMovie } from "@/api/get/select-movie-data";
+import { fetchSelectMovie } from "@/api/get/movie/select-movie-data";
 import { SelectTheatre } from "@/components/SelectedMovie/select-theatre";
 import ShowSelectMovie from "@/components/SelectedMovie/show-select-movie";
 import { SkeletonSelectMovie } from "@/app/ui/Loading/skeleton-selected-movie";
 import DatePagination from "@/components/SelectedMovie/date-pagination";
 import { ShowTheatreSelected } from "@/components/SelectedMovie/show-theatre-selected";
 import moment from "moment";
-import { fetchTheatre } from "@/api/get/theatre-data";
-import { fetchSeat } from "@/api/get/seat-data";
+import { fetchTheatre } from "@/api/get/theatre-seat/theatre-data";
+import { fetchSeat } from "@/api/get/theatre-seat/seat-data";
 import clsx from "clsx";
 
 const Stepper = React.lazy(() =>import("@/components/SelectedMovie/stepper"))
@@ -48,7 +48,7 @@ const Movie = async ({
           hidden: fetchSeatData.length > 0,
         })}
       >
-        <div className="mt-10 w-full h-[120px] bg-gradient-to-r from-secondary via-quaternary to-secondary px-[12%]">
+        <div className="mt-10 w-full h-[120px] phone:h-[98px] bg-gradient-to-r from-secondary via-quaternary to-secondary px-[12%] tablet:px-[6%]">
           <DatePagination id={id} />
         </div>
         <div className="px-[12%] my-[4%]">

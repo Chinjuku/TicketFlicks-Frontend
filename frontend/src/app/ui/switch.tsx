@@ -17,7 +17,7 @@ export const SwitchToggle = (props : {isSelected : boolean, setIsSelected : (isS
         )
       }
       onValueChange={() => setIsSelected(!isSelected)}
-      className='fixed bottom-4 right-4'
+      className='fixed bottom-4 right-4 z-[600]'
     >
     </Switch>
 

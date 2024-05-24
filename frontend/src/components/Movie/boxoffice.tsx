@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { fetchTopFiveMovie } from "@/api/get/movie-data";
+import { fetchTopFiveMovie } from "@/api/get/movie/movie-data";
 import React, { useEffect, useState } from "react";
 import { MovieTypes } from "@/types/movie";
 import { SkeletonTop5BoxOffice } from "@/app/ui/Loading/skeleton-movie";

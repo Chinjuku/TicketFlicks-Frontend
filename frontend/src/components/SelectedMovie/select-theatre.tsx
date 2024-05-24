@@ -24,14 +24,14 @@ export const SelectTheatre = (props: { fetchData : TheatreTypes[] }) => {
       ) : (
         Object.keys(fetchData).map((theatreNum: any, index) => (
           <div key={theatreNum} className="w-full flex flex-col gap-3 my-2">
-            <h1 className="text-3xl font-extrabold">Theatre {theatreNum}</h1>
-            <span className="w-full h-1 bg-white my-3"></span>
+            <h1 className="text-3xl font-extrabold phone:text-2xl">Theatre {theatreNum}</h1>
+            <span className="w-full h-1 phone:h-0.5 bg-white my-3"></span>
             <div className="flex gap-3">
               {fetchData[theatreNum].map((data: Theatre) => (
                 <div key={data.id}>
                   {data.is_show && (
                     <div className="gap-2 flex flex-col">
-                      <Button onClick={() => selectShowTime(data.id)} className="bg-quaternary text-[24px] py-7 px-10 font-bold">
+                      <Button onClick={() => selectShowTime(data.id)} className="phone:text-[20px] phone:px-7 phone:py-4 bg-quaternary text-[24px] py-7 px-10 font-bold">
                         {moment(data.show_time).format("HH:mm")}
                       </Button>
                     </div>

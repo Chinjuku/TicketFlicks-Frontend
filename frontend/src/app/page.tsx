@@ -9,7 +9,7 @@ import { TopFiveMovies } from "@/components/Home/topfive-movies";
 
 export default async function Home() {
   return (
-    <main>
+    <main className="overflow-x-hidden">
         <SliderPicture />
         <SelectMovie />
         <h1 className="desktop:text-[46px] laptop:text-[37px] tablet:text-[30px] phone:text-[22px] font-extrabold text-center my-[2.2%] tablet:mt-[4%] phone:my-[4%]">Movies</h1>

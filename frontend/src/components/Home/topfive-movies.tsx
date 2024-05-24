@@ -1,6 +1,6 @@
 import React from "react";
 import MovieCard from "@/app/ui/movie-card";
-import { fetchTopFiveMovie } from "@/api/get/movie-data";
+import { fetchTopFiveMovie } from "@/api/get/movie/movie-data";
 
 export const TopFiveMovies = async () => {
   const topfive = await fetchTopFiveMovie();

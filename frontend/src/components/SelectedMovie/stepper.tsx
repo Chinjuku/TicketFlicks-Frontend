@@ -81,18 +81,20 @@ const Stepper = (props: StepperProps) => {
   };
 
   return (
-    <div className="phone:flex-col items-center flex w-full phone:h-[600px] flex-auto justify-center max-w-[1200px]">
+    <div className="phone:flex-col items-center flex w-full phone:h-[400px] flex-auto justify-center max-w-[1200px]">
       {stepData.map((item, index) =>
         index === stepData.length - 1 ? (
-          <div key={index}>
+          <div key={index} className="phone:flex items-center phone:gap-5 phone:pl-24 phone:w-full">
             <div className="w-8 h-8 rounded-2xl bg-white"></div>
-            <p className="mt-3 text-sm text-[#d9d9d9]">STEP {index + 1}</p>
-            <p>{item.title}</p>
+            <div className="phone:flex-col phone:flex">
+              <p className="mt-3 text-sm text-[#d9d9d9]">STEP {index + 1}</p>
+              <p>{item.title}</p>
+            </div>
           </div>
         ) : (
           <div key={index} className="w-1/4 phone:w-full phone:h-1/4">
             <div className="flex phone:flex-col items-center phone:gap-12 gap-4">
-              <div className="">
+              <div className="phone:flex phone:items-center phone:justify-start phone:gap-5 phone:w-full phone:pl-24">
                 <button
                   onClick={() => handleStep(index)}
                   className={clsx(
@@ -122,7 +124,7 @@ const Stepper = (props: StepperProps) => {
                 value={item.value}
                 maxValue={1}
                 color="secondary"
-                className="max-w-md max-h-sm phone:max-w-sm w-4/5 phone:mt-2 phone:rotate-90"
+                className="max-w-md max-h-sm phone:max-w-sm w-4/5 phone:mt-2 phone:hidden"
               />
             </div>
             <p className="mt-3 text-sm text-[#d9d9d9] phone:hidden">

@@ -6,7 +6,7 @@ import { PiArmchairFill } from "react-icons/pi";
 import { SelectSeat } from "@/components/SelectedMovie/select-seat";
 import { MovieTypes } from "@/types/movie";
 import { FaCheck } from "react-icons/fa";
-import {fetchPriceSeat} from "@/api/get/seat-data"
+import {fetchPriceSeat} from "@/api/get/theatre-seat/seat-data"
 import { seatContext } from "@/context/seatContext";
 import { IoPersonCircleSharp } from "react-icons/io5";
 
@@ -72,8 +72,8 @@ export const ShowTheatreSelected = (props: {
   });
 
   return (
-    <div ref={seatRef} className="w-full h-full flex my-[4%] gap-10">
-      <div className="w-3/4">
+    <div ref={seatRef} className="w-full h-full flex my-[4%] gap-10 phone:flex-wrap tablet:flex-wrap">
+      <div className="w-3/4 phone:w-full tablet:w-full">
         <h1 className="text-center text-[30px] font-bold my-3">
           Theatre {theatre}
         </h1>
@@ -90,7 +90,7 @@ export const ShowTheatreSelected = (props: {
               <React.Fragment key={index+seat.seat_num}>
                 {isRowStart && (
                   <div className="col-span-1 flex items-center justify-center w-5/5">
-                    <p className="font-bold text-[18px]">{rows[rowNumber]}</p>
+                    <p className="font-bold text-[18px] phone:text-[14px]">{rows[rowNumber]}</p>
                   </div>
                 )}
                 {
@@ -102,11 +102,11 @@ export const ShowTheatreSelected = (props: {
                     {
                         isSelected ? (
                             <div className="bg-green-500 rounded-[50%] p-2">
-                                <FaCheck className="w-4 h-4"/>
+                                <FaCheck className="w-4 h-4 phone:w-2 phone:h-2"/>
                             </div>
                         ) : (
                             <PiArmchairFill
-                    className={clsx("w-8 h-8", {
+                    className={clsx("w-8 h-8 phone:w-6 phone:h-6", {
                       "fill-quaternary": seat.type === "normal",
                       "fill-secondary": seat.type === "vip"
                     })}
@@ -116,7 +116,7 @@ export const ShowTheatreSelected = (props: {
                   
                 </button> : 
                 <div className="flex items-center justify-center mb-1">
-                  <IoPersonCircleSharp className="w-8 h-8 text-gray-300"/>
+                  <IoPersonCircleSharp className="w-8 h-8 phone:w-6 phone:h-6 text-gray-300"/>
                 </div>
               } 
               </React.Fragment>
@@ -127,7 +127,7 @@ export const ShowTheatreSelected = (props: {
             return (
               <p
                 key={index}
-                className="col-span-1 w-full py-3 flex items-center justify-center mt-3 text-[18px]"
+                className="col-span-1 w-full py-3 flex items-center justify-center mt-3 phone:mt-0 phone:py-0 text-[18px] phone:text-[14px]"
               >
                 {index}
               </p>
@@ -135,7 +135,9 @@ export const ShowTheatreSelected = (props: {
           })}
         </div>
       </div>
-      <SelectSeat fetchSeat={fetchSeat} fetchMovie={fetchMovie} selectedSeats={response} />
+      <div className="tablet:w-full tablet:flex tablet:justify-center w-1/4 phone:w-full">
+        <SelectSeat fetchSeat={fetchSeat} fetchMovie={fetchMovie} selectedSeats={response} />
+      </div>
     </div>
   );
 };

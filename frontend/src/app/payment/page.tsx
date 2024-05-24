@@ -4,7 +4,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import axios from "axios";
 import PaymentForm from "@/components/Payment/payment-form";
 import { SeatPriceTypes } from "@/types/seat";
-import { fetchPriceSeat } from "@/api/get/seat-data";
+import { fetchPriceSeat } from "@/api/get/theatre-seat/seat-data";
 import { SkeletonPaymentPage } from "@/app/ui/Loading/skeletion-payment";
 import { stripePromise, appearance } from "@/utils/stripe-secret";
 
@@ -23,7 +23,7 @@ const Page = () => {
         setClientId(response.data.id)
         setClientSecret(response.data.clientSecret);
       } catch (error) {
-        console.error("Error creating PaymentIntent:", error);
+        console.log("Error creating PaymentIntent:", error);
       }
     };
     createPaymentIntent();

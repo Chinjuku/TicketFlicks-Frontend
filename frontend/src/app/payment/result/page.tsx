@@ -1,5 +1,5 @@
 "use client";
-import { fetchPayment } from "@/api/get/payment-data";
+import { fetchPayment } from "@/api/get/payment/payment-data";
 import { useSearchParams } from "next/navigation";
 import React, { useMemo, useRef, useState } from "react";
 import { PaymentTypes } from "@/types/payment";

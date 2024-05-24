@@ -23,7 +23,7 @@ export const SelectSeat = (props: {
     }
 
   return (
-    <div className="w-1/4 h-[440px] my-[2%] bg-primary1 p-6 border border-white flex flex-col justify-between">
+    <div className="w-full tablet:w-1/2 h-[440px] my-[2%] bg-primary1 p-6 border border-white flex flex-col justify-between">
       <h1 className="text-[20px] font-extrabold text-center">
         {fetchMovie?.movie_name}
       </h1>

@@ -1,4 +1,4 @@
-import { fetchAllMovies, fetchCommingMovie, fetchFavoriteMovie, fetchOnShowMovie, fetchRecommandMovie } from "@/api/get/movie-data";
+import { fetchAllMovies, fetchCommingMovie, fetchFavoriteMovie, fetchOnShowMovie, fetchRecommandMovie } from "@/api/get/movie/movie-data";
 import { MovieTypes } from "@/types/movie";
 
 // suspense-fetcher.ts

@@ -1,7 +1,7 @@
 "use client";
 
 import { Autocomplete, AutocompleteItem } from "@nextui-org/autocomplete";
-import { fetchAllMovies } from "@/api/get/movie-data";
+import { fetchAllMovies } from "@/api/get/movie/movie-data";
 import { useEffect, useState } from "react";
 import { MovieTypes } from "@/types/movie";
 import { useRouter } from "next/navigation";

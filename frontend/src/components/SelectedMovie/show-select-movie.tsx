@@ -22,13 +22,13 @@ const ShowSelectMovie = (props : {fetchMovie: MovieTypes | null}) => {
       <section className="flex phone:flex-wrap gap-[7%] phone:gap-6 phone:p-[10%] laptop:h-[500px] tablet:h-[500px] h-full">
         <div className="w-1/2 grow flex items-center justify-end phone:justify-center">
           <img
-            className="w-56 phone:w-40 object-cover"
+            className="w-56 phone:w-36 object-cover"
             src={`http://localhost:8000${fetchMovie?.movie_img}`}
             alt={fetchMovie?.movie_name}
           />
         </div>
         <div className="w-1/2 grow flex h-full flex-col items-start justify-center gap-5">
-          <h1 className="phone:text-[28px] font-bold text-[30px]">{fetchMovie?.movie_name}</h1>
+          <h1 className="phone:text-[24px] font-bold text-[30px]">{fetchMovie?.movie_name}</h1>
           <p>
             Genre :{" "}
             {fetchMovie?.categories.map((category, index) => {
@@ -43,11 +43,11 @@ const ShowSelectMovie = (props : {fetchMovie: MovieTypes | null}) => {
           <p>Rating : {fetchMovie?.rating}/10</p>
           <div className="flex-wrap gap-5 flex">
             <Link href="review/[id]" as={`/review/${fetchMovie?.id}`} className="grow w-1/2">
-              <Button className="bg-secondary w-full">
+              <Button className="bg-secondary w-full tablet:w-3/4">
                 REVIEW MOVIE
               </Button>
             </Link>
-            <Button className="bg-quaternary grow w-1/2" onClick={() => setOpenContent(true)}>
+            <Button className="bg-quaternary w-full tablet:w-3/4" onClick={() => setOpenContent(true)}>
               VIEW MORE DETAILS
             </Button>
           </div>
