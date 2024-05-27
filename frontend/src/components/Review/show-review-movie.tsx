@@ -30,12 +30,8 @@ export const ShowReviewMovie = (props: { type: string }) => {
   return (
     <>
       {filter_movie.map((data: MovieTypes, index: number) => {
-        const getCount = countReview
-          .map((result: CountReviewTypes) => {
-            if (result.movie === data.id) return result.count_review;
-            return 0;
-          })
-
+        const count = countReview.find((findId) => findId.movie === data.id)?.count_review
+        const getCount: number = count ? count : 0
         return (
           <div
             key={index}

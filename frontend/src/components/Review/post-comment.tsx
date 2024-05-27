@@ -3,12 +3,14 @@
 import { createReview } from "@/api/post/create-review";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
-import { revalidatePath } from "next/cache";
 import React, { FormEvent, useRef, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
-const PostComment = (props: { movieId: string | undefined; reviewId: string }) => {
+const PostComment = (props: {
+  movieId: string | undefined;
+  reviewId: string;
+}) => {
   const { movieId, reviewId } = props;
   const [rating, setRating] = useState<number>(0);
   const [hover, setHover] = useState<number>(0);
@@ -16,7 +18,15 @@ const PostComment = (props: { movieId: string | undefined; reviewId: string }) =
   const totalStars = 5;
   const checkId = movieId ? movieId : "";
   const [success, setSuccess] = useState<boolean>(false);
-  const formRef = useRef<HTMLFormElement>(null)
+  const formRef = useRef<HTMLFormElement>(null);
+
+  React.useEffect(() => {
+    if (success && formRef) {
+      setRating(0);
+      formRef.current?.reset();
+      setSuccess(false)
+    }
+  }, [success, formRef]);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -26,15 +36,14 @@ const PostComment = (props: { movieId: string | undefined; reviewId: string }) =
       const response = await createReview(formData, reviewId);
 
       if (response.errors) {
-        Object.values(response.errors).forEach((errorArray) => {
-            errorArray.forEach((error) => {
-              toast.error(error);
-            });
+        return Object.values(response.errors).forEach((errorArray) => {
+          errorArray.forEach((error) => {
+            toast.error(error);
           });
-      } else {
-        setSuccess(true);
-        toast.success("Post comment successfully!");
+        });
       }
+      setSuccess(true);
+      toast.success("Post comment successfully!");
     } catch (error) {
       // @ts-ignore
       toast.error("Error: " + error.message);
@@ -43,18 +52,11 @@ const PostComment = (props: { movieId: string | undefined; reviewId: string }) =
     }
   };
 
-  React.useEffect(() => {
-    if (success && formRef.current) {
-      setRating(0)
-      formRef.current.reset();
-    }
-  }, [success]);
-
   return (
     <div className="bg-secondary w-full h-[115px] max-h-[150px] p-2 rounded border-white border">
       <ToastContainer
         position="bottom-right"
-        autoClose={5000}
+        autoClose={3000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -131,4 +133,3 @@ const PostComment = (props: { movieId: string | undefined; reviewId: string }) =
 };
 
 export default PostComment;
-

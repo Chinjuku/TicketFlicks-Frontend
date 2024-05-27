@@ -56,7 +56,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
           fetchAllMovie.map((data, index) => {
             if (data.id === fetchMovie?.id) return;
             return (
-              <Link href={"/review/[id]"} as={`/review/${data.id}`} key={index}>
+              <Link href={`/review/${data.id}`} as={`/review/${data.id}`} key={index}>
                 <div className="flex gap-4 p-2 border-white border-2 rounded-lg my-2 hover:bg-primary1 transition-all relative">
                   <img className="object-cover w-[100px] h-[145px]" src={`http://localhost:8000${data.movie_img}`} alt={data.movie_name} />
                   <div>

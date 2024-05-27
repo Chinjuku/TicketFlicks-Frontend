@@ -1,6 +1,7 @@
 import axios from "axios"
 import { unstable_noStore as noStore } from 'next/cache';
 
+// api "GET" requests 
 export const tryCatchGetMethod = async (path: string, elseReturn: any) => {
   try {
     const res = await axios.get(`http://localhost:8000/api${path}`)
@@ -29,6 +30,7 @@ export const tryCatchGetDelayMethod = async (path: string, elseReturn: any) => {
   }
 }
 
+// api "POST" requests
 export const tryCatchPostMethod = async (path: string, data: any) => {
   noStore();
   try {
@@ -54,5 +56,17 @@ export async function fetchPostJSON(url: string, data: any) {
     return await response.json();
   } catch (error) {
     throw new Error('Error fetching data: ');
+  }
+}
+
+// api "DELETE" request
+export const tryCatchDeleteMethod = async (path: string) => {
+  try {
+    const res = await axios.delete(`http://localhost:8000/api${path}`)
+    if (res.status === 200) {
+      return res.data
+    }
+  } catch (err) {
+    console.error(err)
   }
 }

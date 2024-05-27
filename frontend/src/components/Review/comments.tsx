@@ -4,15 +4,15 @@ import React, { useState } from "react";
 import { IoStar } from "react-icons/io5";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { Button } from "@nextui-org/button";
-import { Input } from "@nextui-org/input";
 import { FaRegComment } from "react-icons/fa";
 import ShowReplyComment from "./show-reply-cemment";
 import clsx from "clsx";
 import { CountReplyTypes } from "@/types/reply";
 import { BsThreeDots } from "react-icons/bs";
-import { MdModeEdit } from "react-icons/md";
-import { AiFillDelete } from "react-icons/ai";
+
 import PostReply from "./post-reply";
+import UpdateModal from "./update-modal";
+import DeleteReview from "./delete-review";
 
 const Comments = (props: {
   fetchComments: ReviewTypes[];
@@ -26,6 +26,7 @@ const Comments = (props: {
     {}
   );
   const [choice, setChoice] = useState<{ [key: number]: boolean }>({});
+  const [showMoreComment, setshowMoreComment] = useState<number>(5);
 
   const toggleShowReply = (index: number) => {
     setShowReplies((prev) => ({ ...prev, [index]: !prev[index] }));
@@ -39,13 +40,17 @@ const Comments = (props: {
     setChoice((prev) => ({ ...prev, [index]: !prev[index] }));
   };
 
-  const handleDelete = (id: string) => {
-    
+  const handleShowMore = () => {
+    setshowMoreComment((prev) => prev + 5);
+  };
+
+  function handleShowLess(): void {
+    setshowMoreComment((prev) => prev = 5)
   }
 
   return (
     <>
-      {fetchComments.map((data, index) => {
+      {fetchComments.slice(0, showMoreComment).map((data, index) => {
         const countData = fetchCountReply.find(
           (countData) => countData.review_id === data.id
         );
@@ -57,7 +62,7 @@ const Comments = (props: {
           >
             <div className="flex gap-2 h-full">
               <div className="vl w-2 border-l-2 border-white"></div>
-              <div className="flex gap-3 items-start">
+              <div className="flex gap-3 justify-start">
                 <div className="rounded-full w-8 h-8 bg-gray-100"></div>
                 <div>
                   <p className="font-bold">@{data.name}</p>
@@ -103,27 +108,41 @@ const Comments = (props: {
               <BsThreeDots className="w-4 h-4 fill-white" />
             </Button>
             {choice[index] && (
-              <div className="rounded flex flex-col w-[100px] bg-primary1 absolute top-9 right-[-10px] gap-2 p-1">
-                <Button
-                  onClick={() => console.log(data.id)}
-                  className="bg-transparent rounded hover:bg-primary2 transition-all h-7 w-13"
-                >
-                  <MdModeEdit className="w-4 h-4 fill-white" />
-                  Edit
-                </Button>
-                <Button
-                  onClick={() => handleDelete(data.id)}
-                  className="bg-transparent rounded hover:bg-primary2 transition-all h-7 w-13"
-                >
-                  <AiFillDelete className="w-5 h-5 fill-white" />
-                  Delete
-                </Button>
+              <div className="rounded flex flex-col w-[100px] bg-primary1 absolute top-9 right-[-10px] gap-1 p-1">
+                <UpdateModal
+                  reviewId={data.id}
+                  movieId={data.movie.id}
+                  index={index}
+                  showButton={showButton}
+                />
+                <DeleteReview
+                  reviewId={data.id}
+                  movieId={data.movie.id}
+                  index={index}
+                  showButton={showButton}
+                />
               </div>
             )}
             {showReplies[index] && <ShowReplyComment reviewId={data.id} />}
           </div>
         );
       })}
+      <div className="flex gap-4 justify-center">
+        {showMoreComment < fetchComments.length && (
+          <div className="flex justify-center">
+            <Button onClick={handleShowMore} className="bg-primary rounded">
+              Show More
+            </Button>
+          </div>
+        )}
+        {showMoreComment >= fetchComments.length && showMoreComment > 5 && (
+          <div className="flex justify-center">
+            <Button onClick={handleShowLess} className="bg-primary rounded">
+              Show Less
+            </Button>
+          </div>
+        )}
+      </div>
     </>
   );
 };

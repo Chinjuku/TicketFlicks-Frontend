@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { lato } from "@/app/ui/fonts";
 import ClientRootLayout from "@/app/client-root-layout";
 import { SeatProvider } from "@/context/seatContext";
+import { ThemeProvider } from "@/context/themeContext";
 
 export const metadata: Metadata = {
   title: "TicketFlicks",
@@ -19,10 +20,15 @@ export default function RootLayout({
       className={`${lato.className} scroll-smooth scroll-pt-[20%]`}
       style={lato.style}
     >
-      <body suppressHydrationWarning={true} className="desktop:pt-[196px] laptop:pt-[140px] tablet:pt-[150px] phone:pt-[97px] overflow-x-hidden h-screen">
-        <SeatProvider>
-          <ClientRootLayout>{children}</ClientRootLayout>
-        </SeatProvider>
+      <body
+        suppressHydrationWarning={true}
+        className="desktop:pt-[196px] laptop:pt-[140px] tablet:pt-[150px] phone:pt-[97px] overflow-x-hidden h-screen"
+      >
+        <ThemeProvider>
+          <SeatProvider>
+            <ClientRootLayout>{children}</ClientRootLayout>
+          </SeatProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
