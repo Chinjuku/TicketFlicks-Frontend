@@ -6,7 +6,7 @@ import { PiArmchairFill } from "react-icons/pi";
 import { SelectSeat } from "@/components/SelectedMovie/select-seat";
 import { MovieTypes } from "@/types/movie";
 import { FaCheck } from "react-icons/fa";
-import {fetchPriceSeat} from "@/api/get/theatre-seat/seat-data"
+import {fetchPriceSeat} from "@/api/get/seat"
 import { seatContext } from "@/context/seatContext";
 import { IoPersonCircleSharp } from "react-icons/io5";
 
@@ -135,7 +135,7 @@ export const ShowTheatreSelected = (props: {
           })}
         </div>
       </div>
-      <div className="tablet:w-full tablet:flex tablet:justify-center w-1/4 phone:w-full">
+      <div className="tablet:w-full phone:absolute phone:bottom-0 phone:right-0 phone:left-0 tablet:flex tablet:justify-center w-1/4 phone:w-full">
         <SelectSeat fetchSeat={fetchSeat} fetchMovie={fetchMovie} selectedSeats={response} />
       </div>
     </div>

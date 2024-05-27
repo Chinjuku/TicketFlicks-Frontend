@@ -3,8 +3,8 @@
 import { useEffect, useState } from "react";
 import moment from "moment";
 import clsx from "clsx";
-import { createFavorite } from "@/api/post/favorite-movie-data";
-import { getFavorite } from "@/api/get/movie/favorite-movie-data";
+import { createFavorite } from "@/api/post/switch-favorite";
+import { getFavorite } from "@/api/get/movie";
 import { HeartIcon } from "@heroicons/react/24/outline";
 import { MovieTypes } from "@/types/movie";
 import Link from "next/link";
@@ -72,7 +72,6 @@ const MovieCard = (props: { data: MovieTypes }) => {
                 Select this movie
             </Button>
           </Link>
-          
         </div>
       </div>
     );

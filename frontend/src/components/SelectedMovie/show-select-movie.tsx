@@ -19,16 +19,16 @@ const ShowSelectMovie = (props : {fetchMovie: MovieTypes | null}) => {
   }, [])
   return (
     <>
-      <section className="flex phone:flex-wrap gap-[7%] phone:gap-6 phone:p-[10%] laptop:h-[500px] tablet:h-[500px] h-full">
+      <section className="flex desktop:h-[600px] phone:flex-wrap gap-[7%] phone:gap-6 phone:p-[10%] laptop:h-[500px] tablet:h-[500px] h-full">
         <div className="w-1/2 grow flex items-center justify-end phone:justify-center">
           <img
-            className="w-56 phone:w-36 object-cover"
+            className="w-56 desktop:w-64 phone:w-36 object-cover"
             src={`http://localhost:8000${fetchMovie?.movie_img}`}
             alt={fetchMovie?.movie_name}
           />
         </div>
         <div className="w-1/2 grow flex h-full flex-col items-start justify-center gap-5">
-          <h1 className="phone:text-[24px] font-bold text-[30px]">{fetchMovie?.movie_name}</h1>
+          <h1 className="phone:text-[24px] desktop:text-4xl font-bold text-[30px]">{fetchMovie?.movie_name}</h1>
           <p>
             Genre :{" "}
             {fetchMovie?.categories.map((category, index) => {

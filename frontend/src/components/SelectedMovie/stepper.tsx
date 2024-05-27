@@ -6,6 +6,7 @@ import { FaCheck } from "react-icons/fa";
 import clsx from "clsx";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 import { seatContext } from "@/context/seatContext";
+import Loading from "@/app/ui/Loading/loading-overlay";
 
 type StepperProps = {
   selectMovie: string | null;
@@ -16,6 +17,7 @@ const Stepper = (props: StepperProps) => {
   const [selectMovieValue, setSelectMovieValue] = useState<number>(0);
   const [selectTheatreValue, setSelectTheatreValue] = useState<number>(0);
   const [selectSeatValue, setSelectSeatValue] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(true);
   const { selectMovie, selectTheatre } = props;
   const searchParams = useSearchParams();
   const { replace } = useRouter();
@@ -24,16 +26,18 @@ const Stepper = (props: StepperProps) => {
 
   useEffect(() => {
     if (price === undefined) return;
-    else if (price > 0) {
+    if (price > 0) {
       setSelectTheatreValue(1);
       const timeoutId = setTimeout(() => {
         setSelectSeatValue(0.5);
+        setLoading(false); // End loading
       }, 500);
       return () => clearTimeout(timeoutId);
     }
   }, [seat, price]);
 
   useEffect(() => {
+    setLoading(true); // Start loading
     if (selectMovie) {
       setSelectMovieValue(0.5);
     }
@@ -41,10 +45,12 @@ const Stepper = (props: StepperProps) => {
       setSelectMovieValue(1);
       const timeoutId = setTimeout(() => {
         setSelectTheatreValue(0.5);
+        setLoading(false); // End loading
       }, 500);
       return () => clearTimeout(timeoutId);
     } else {
       setSelectTheatreValue(0);
+      setLoading(false); // End loading
     }
   }, [selectMovie, selectTheatre]);
 
@@ -79,6 +85,10 @@ const Stepper = (props: StepperProps) => {
       setSelectTheatreValue(0.5);
     }
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="phone:flex-col items-center flex w-full phone:h-[400px] flex-auto justify-center max-w-[1200px]">
@@ -139,3 +149,4 @@ const Stepper = (props: StepperProps) => {
 };
 
 export default Stepper;
+

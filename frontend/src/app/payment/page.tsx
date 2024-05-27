@@ -4,7 +4,7 @@ import { Elements } from "@stripe/react-stripe-js";
 import axios from "axios";
 import PaymentForm from "@/components/Payment/payment-form";
 import { SeatPriceTypes } from "@/types/seat";
-import { fetchPriceSeat } from "@/api/get/theatre-seat/seat-data";
+import { fetchPriceSeat } from "@/api/get/seat";
 import { SkeletonPaymentPage } from "@/app/ui/Loading/skeletion-payment";
 import { stripePromise, appearance } from "@/utils/stripe-secret";
 

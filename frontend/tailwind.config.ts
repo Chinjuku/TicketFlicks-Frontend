@@ -58,7 +58,8 @@ const config: Config = {
             yellow: "#FFE500",
             default300: "#15202b",
             default200: "#1e2e3d",
-            primary1: "#3B0C4E"
+            primary1: "#3B0C4E",
+            primary2: "#5F147D"
           },
         },
       },

@@ -1,33 +1,35 @@
-"use client"
-import "@/styles/home.css"
-import { NavMovie } from "@/components/Movie/movie-nav"
-import SelectMovie from "@/app/ui/select-movie"
-import { Suspense, useEffect, useRef, useState } from "react"
-import ShowMovieType from "@/components/Movie/show-movie-type"
-import { SkeletonMovie, SkeletonTop5BoxOffice } from "@/app/ui/Loading/skeleton-movie"
-import gsap from "gsap"
-import { ScrollTrigger } from "gsap/ScrollTrigger"
-import Top5BoxOffice from "@/components/Movie/boxoffice"
+"use client";
+import "@/styles/home.css";
+import { NavMovie } from "@/components/Movie/movie-nav";
+import SelectMovie from "@/app/ui/select-movie";
+import { Suspense, useEffect, useRef, useState } from "react";
+import ShowMovieType from "@/components/Movie/show-movie-type";
+import { SkeletonMovie, SkeletonTop5BoxOffice } from "@/app/ui/Loading/skeleton-movie";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Top5BoxOffice from "@/components/Movie/boxoffice";
 
 gsap.registerPlugin(ScrollTrigger);
 
 const Movie = () => {
-    const triggerRef = useRef<HTMLDivElement>(null)
-    const endTriggerRef = useRef<HTMLDivElement>(null)
-    const [type, setType] = useState<string>("NOW SHOWING")
-    // useEffect(() => {
-    //     if (triggerRef.current && endTriggerRef.current) {
-    //         gsap.to(triggerRef.current, {
-    //             scrollTrigger: {
-    //                 trigger: endTriggerRef.current,
-    //                 start: "top center",
-    //                 end: "bottom top",
-    //                 pin: true,
-    //                 markers: true,
-    //             },
-    //         });
-    //     }
-    // }, []);
+    const triggerRef = useRef<HTMLDivElement>(null);
+    const endTriggerRef = useRef<HTMLDivElement>(null);
+    const [type, setType] = useState<string>("NOW SHOWING");
+
+    useEffect(() => {
+        console.log("rrr")
+        if (triggerRef.current && endTriggerRef.current) {
+            gsap.to(triggerRef.current, {
+                scrollTrigger: {
+                    trigger: triggerRef.current,
+                    start: "top top",
+                    end: "bottom bottom",
+                    pin: true,
+                    markers: true,
+                },
+            });
+        }
+    }, []);
 
     return (
         <main className="flex flex-col items-center w-full gap-[30px] relative">
@@ -41,17 +43,24 @@ const Movie = () => {
                 <Suspense fallback={<SkeletonMovie />}>
                     <ShowMovieType ref={endTriggerRef} type={type} />
                 </Suspense>
-                <div ref={triggerRef} className="w-1/5 phone:hidden tablet:hidden">
+                <div 
+                    ref={triggerRef} 
+                    className="w-1/5 phone:hidden tablet:hidden"
+                    style={{
+                        position: "sticky",
+                        top: "150px"
+                    }}
+                >
                     <Suspense fallback={<SkeletonTop5BoxOffice />}>
                         <Top5BoxOffice />
                     </Suspense>
                 </div>
             </div>
-            <div className="h-[100px] bg-black">
-          
-            </div>
+            <div className="h-[100px] bg-black"></div>
         </main>
-    )
-}
+    );
+};
 
-export default Movie
+export default Movie;
+
+

@@ -13,6 +13,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { savePayment } from "@/api/post/create-payment";
 import { setIdleSeat } from "@/api/update/update-seat";
+import Loading from "@/app/ui/Loading/loading-overlay";
 
 export default function PaymentForm(props: {
   selectSeat: SeatPriceTypes | undefined | null,
@@ -20,11 +21,13 @@ export default function PaymentForm(props: {
   clientId: string | null
 }) {
   const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(false)
   const { selectSeat, clientSecret, clientId } = props;
   const stripe = useStripe();
   const elements = useElements();
   const seats = selectSeat?.seats.map((s) => s.id)
   const handleSubmit = async (e: FormEvent) => {
+    setLoading(true)
     e.preventDefault();
     if (!stripe || !elements || !clientSecret) return;
     try {
@@ -40,7 +43,8 @@ export default function PaymentForm(props: {
           payment_method : response.data.payment_method
         }
         await savePayment(paymentData)
-        await setIdleSeat(seats) 
+        await setIdleSeat(seats)
+        setLoading(false)
         window.location.href = `/payment/result?payment_intent=${response.data.id}`;
       } else {
         console.error("Payment not successful:", response.data);
@@ -50,16 +54,19 @@ export default function PaymentForm(props: {
     }
   };
   const handleCancel = async () => {
+    setLoading(true);
     const res = await axios.post('/payment/api/cancel_payment', {
       clientSecret: clientId
     })
     if(res.data.result === "success") {
+      setLoading(false)
       router.back()
     }
   }
+  if (loading) return <Loading />
 
   return (
-    <div className="flex p-[80px] phone:p-[30px] gap-4 flex-wrap phone:gap-12 desktop:h-[83vh]">
+    <div className="flex p-[80px] phone:p-[30px] gap-4 flex-wrap phone:gap-12 phone:px-12 desktop:h-[83vh]">
       <div className="grow w-[48%] phone:w-1/2 flex flex-col p-[2.8%] gap-5 phone:gap-3">
         <Link
           href="/movie"
