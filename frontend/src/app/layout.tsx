@@ -21,8 +21,8 @@ export default function RootLayout({
       style={lato.style}
     >
       <body
-        suppressHydrationWarning={true}
         className="desktop:pt-[196px] laptop:pt-[140px] tablet:pt-[150px] phone:pt-[97px] overflow-x-hidden h-screen"
+        suppressHydrationWarning={true}
       >
         <ThemeProvider>
           <SeatProvider>

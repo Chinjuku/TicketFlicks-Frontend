@@ -4,29 +4,25 @@ import { createReview } from "@/api/post/create-review";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import React, { FormEvent, useRef, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import toast, { Toaster } from "react-hot-toast";
 
-const PostComment = (props: {
-  movieId: string | undefined;
-  reviewId: string;
-}) => {
+const PostComment = (props: { movieId: string; reviewId: string }) => {
   const { movieId, reviewId } = props;
   const [rating, setRating] = useState<number>(0);
   const [hover, setHover] = useState<number>(0);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const totalStars = 5;
-  const checkId = movieId ? movieId : "";
   const [success, setSuccess] = useState<boolean>(false);
   const formRef = useRef<HTMLFormElement>(null);
 
   React.useEffect(() => {
-    if (success && formRef) {
+    if (success && formRef.current) {
       setRating(0);
-      formRef.current?.reset();
-      setSuccess(false)
+      formRef.current.reset();
+      setSuccess(false);
+      toast.success("Post comment successfully!");
     }
-  }, [success, formRef]);
+  }, [success]);
 
   const onSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,19 +30,17 @@ const PostComment = (props: {
     try {
       const formData = new FormData(e.currentTarget);
       const response = await createReview(formData, reviewId);
-
-      if (response.errors) {
-        return Object.values(response.errors).forEach((errorArray) => {
-          errorArray.forEach((error) => {
+      if (response && response.errors) {
+        Object.values(response.errors).forEach((errorArray: string[]) => {
+          errorArray.forEach((error: string) => {
             toast.error(error);
           });
         });
+      } else {
+        setSuccess(true);
       }
-      setSuccess(true);
-      toast.success("Post comment successfully!");
     } catch (error) {
-      // @ts-ignore
-      toast.error("Error: " + error.message);
+      toast.error("Error: " + (error as Error).message);
     } finally {
       setIsLoading(false);
     }
@@ -54,20 +48,8 @@ const PostComment = (props: {
 
   return (
     <div className="bg-secondary w-full h-[115px] max-h-[150px] p-2 rounded border-white border">
-      <ToastContainer
-        position="bottom-right"
-        autoClose={3000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
       <form ref={formRef} onSubmit={onSubmit}>
-        <input type="hidden" name="movie" value={checkId} />
+        <input type="hidden" name="movie" value={movieId} />
         <div className="flex justify-between px-2.5 items-center">
           <div className="flex gap-2">
             <p>Name:</p>
@@ -88,7 +70,7 @@ const PostComment = (props: {
                   <input
                     type="radio"
                     name="stars"
-                    value={rating}
+                    value={currentRating}
                     onChange={() => setRating(currentRating)}
                     className="hidden"
                   />

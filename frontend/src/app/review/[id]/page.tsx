@@ -47,7 +47,7 @@ const Page = async ({ params }: { params: { id: string } }) => {
           <BiCommentDetail className="w-6 h-6" />
           <h1 className="text-[20px] font-bold">{fetchCountReview} COMMENTS</h1>
         </div>
-        <PostComment movieId={fetchMovie?.id} reviewId={id} />
+        <PostComment movieId={id} reviewId={id} />
         <Comments fetchComments={fetchReview} fetchCountReply={fetchCountReply} />
       </div>
       <div className="w-1/4 p-3">

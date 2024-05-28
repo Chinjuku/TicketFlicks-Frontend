@@ -30,9 +30,9 @@ export const updateReview = async (formData: FormData, reviewId: string, movieId
     }
 
     try {
-        console.log(validatedFields) 
-        await axios.put(`/changereview/${reviewId}/`, validatedFields.data);
-        revalidatePath(`/review/${movieId}`);
+        console.log(validatedFields, reviewId)
+        await axios.put(`http://localhost:8000/api/changereview/${reviewId}/`, validatedFields.data);
+        revalidatePath(`/review/${reviewId}/edit`);
         return { message: 'Success' };
     } catch (err) {
         return {

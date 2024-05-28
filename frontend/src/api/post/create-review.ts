@@ -2,6 +2,7 @@
 import { tryCatchPostMethod } from '@/utils/api-helper';
 import { revalidatePath, revalidateTag } from 'next/cache';
 import { z } from 'zod';
+import { redirect } from 'next/navigation';
 
 const reviewSchema = z.object({
   name: z.string().min(1, {message: "don't delete unknown if you no need to fill your name"}),
@@ -27,13 +28,11 @@ export const createReview = async (formData: FormData, reviewId:string) => {
 
   try {
     await tryCatchPostMethod("/review/", validatedFields.data);
-    revalidatePath(`/review/${reviewId}`)
-    revalidateTag('review_comment')
-    revalidateTag('stars')
-    return { message: 'Success' };
   } catch (err) {
     return {
       message: 'Database Error: Failed to Create Review.',
     };
   }
+  revalidatePath(`/review/${reviewId}`)
+  redirect(`/review/${reviewId}`)
 };

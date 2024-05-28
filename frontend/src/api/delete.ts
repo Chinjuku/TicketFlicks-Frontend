@@ -5,9 +5,8 @@ import { revalidatePath } from "next/cache";
 export const deleteReview = async (reviewId: string, movieId: string) => {
     const res = await tryCatchDeleteMethod(`/changereview/${reviewId}/`)
     if (res) {
-        revalidatePath(`/review/${movieId}`)
-        return res.message
+        return revalidatePath(`/review/${movieId}`)
     } else {
-        return "error"
+        throw new Error(`Could not delete`)
     }
 }

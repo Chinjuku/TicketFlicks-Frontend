@@ -2,17 +2,19 @@
 import { ReviewTypes } from "@/types/review";
 import React, { useState } from "react";
 import { IoStar } from "react-icons/io5";
-import { MdKeyboardArrowDown } from "react-icons/md";
+import { MdKeyboardArrowDown, MdModeEdit } from "react-icons/md";
 import { Button } from "@nextui-org/button";
 import { FaRegComment } from "react-icons/fa";
-import ShowReplyComment from "./show-reply-cemment";
+import ShowReplyComment from "./Reply/show-reply-cemment";
 import clsx from "clsx";
 import { CountReplyTypes } from "@/types/reply";
 import { BsThreeDots } from "react-icons/bs";
-
-import PostReply from "./post-reply";
+import PostReply from "./Reply/post-reply";
 import UpdateModal from "./update-modal";
 import DeleteReview from "./delete-review";
+import Link from "next/link";
+import moment from "moment";
+import { datetimeFormatter } from "@/utils/datetime-post-format";
 
 const Comments = (props: {
   fetchComments: ReviewTypes[];
@@ -45,12 +47,13 @@ const Comments = (props: {
   };
 
   function handleShowLess(): void {
-    setshowMoreComment((prev) => prev = 5)
+    setshowMoreComment((prev) => (prev = 5));
   }
 
   return (
     <>
       {fetchComments.slice(0, showMoreComment).map((data, index) => {
+        const create_time = datetimeFormatter(data.time_stamp)
         const countData = fetchCountReply.find(
           (countData) => countData.review_id === data.id
         );
@@ -65,7 +68,10 @@ const Comments = (props: {
               <div className="flex gap-3 justify-start">
                 <div className="rounded-full w-8 h-8 bg-gray-100"></div>
                 <div>
-                  <p className="font-bold">@{data.name}</p>
+                  <div className="flex gap-3 items-end">
+                    <p className="font-bold">@{data.name}</p>
+                    <p className="text-[12px] text-[#d9d9d9]">{create_time}</p>
+                  </div>
                   <p className="text-sm">{data.review_comment}</p>
                 </div>
               </div>
@@ -98,6 +104,7 @@ const Comments = (props: {
               <PostReply
                 reviewId={data.id}
                 index={index}
+                movieId={data.movie.id}
                 toggleReplyField={(index) => toggleReplyField(index)}
               />
             )}
@@ -111,7 +118,6 @@ const Comments = (props: {
               <div className="rounded flex flex-col w-[100px] bg-primary1 absolute top-9 right-[-10px] gap-1 p-1">
                 <UpdateModal
                   reviewId={data.id}
-                  movieId={data.movie.id}
                   index={index}
                   showButton={showButton}
                 />
