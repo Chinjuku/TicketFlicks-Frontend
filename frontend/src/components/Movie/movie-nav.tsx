@@ -13,7 +13,7 @@ export const NavMovie = (props: MovieNavType) => {
         {
             types.map((data) => (
                 data === props.type ? null : 
-                <Button key={data} aria-label="Close" onClick={() => props.setType(data)} className='w-[22.5%] tablet:w-[27%] phone:w-full phone:bg-secondary phone:text-[12px] desktop:text-[28px] laptop:text-[22px] tablet:text-[16px] font-bold hover:translate-y-[-5px] bg-transparent text-white'>{data}</Button>
+                <Button key={data} aria-label="Close" onClick={() => props.setType(data)} className='w-[22.5%] tablet:w-[27%] phone:h-[30px] phone:rounded-md phone:w-full phone:bg-secondary phone:text-[12px] desktop:text-[28px] laptop:text-[22px] tablet:text-[16px] font-bold hover:translate-y-[-5px] phone:hover:translate-y-[-2px] bg-transparent text-white'>{data}</Button>
             ))
         }
     </div>

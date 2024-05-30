@@ -1,8 +1,8 @@
 'use server'
-import { tryCatchPostMethod } from '@/utils/api-helper';
 import axios from 'axios';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
+import { djangoHost } from '@/utils/api-helper';
 
 const updateReviewSchema = z.object({
     id: z.string(),
@@ -31,8 +31,8 @@ export const updateReview = async (formData: FormData, reviewId: string, movieId
 
     try {
         console.log(validatedFields, reviewId)
-        await axios.put(`http://localhost:8000/api/changereview/${reviewId}/`, validatedFields.data);
-        revalidatePath(`/review/${reviewId}/edit`);
+        await axios.put(djangoHost(`/changereview/${reviewId}/`), validatedFields.data);
+        revalidatePath(`/review/${movieId}`);
         return { message: 'Success' };
     } catch (err) {
         return {

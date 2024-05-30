@@ -2,11 +2,13 @@
 
 import { Autocomplete, AutocompleteItem } from "@nextui-org/autocomplete";
 import { fetchAllMovies } from "@/api/get/movie";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { MovieTypes } from "@/types/movie";
 import { useRouter } from "next/navigation";
+import { themeContext } from "@/context/themeContext";
 
 const SelectMovie = () => {
+  const theme = useContext(themeContext)
   const router = useRouter();
   const [allMovie, setAllMovie] = useState<MovieTypes[]>([]);
   useEffect(() => {
@@ -25,13 +27,13 @@ const SelectMovie = () => {
           aria-label="Close"
           variant="underlined"
           placeholder="Search Movies"
-          className="max-w-xl rounded-md tablet:w-4/6 text-black tablet:h-4/5 desktop:text-[20px] dark bg-white border-2 border-primary px-5 py-[5px] z-1"
+          className={`${theme} max-w-xl rounded-md tablet:w-4/6 text-black tablet:h-4/5 desktop:text-[20px] bg-white border-2 border-primary px-5 py-[5px] z-1`}
           defaultItems={allMovie}
           onSelectionChange={(value) => router.push(`/movie/${value}`)}
         >
           {(movie) => (
             <AutocompleteItem
-              className="text-primary z-1"
+              className={`${theme} text-primary z-1`}
               key={movie.id}
               value={movie.id}
             >

@@ -1,15 +1,15 @@
-import { fetchAllMovies } from "@/api/get/movie";
-import { fetchReply } from "@/api/get/reply";
-import Loading from "@/app/ui/Loading/loading-overlay";
+import { fetchReplyAll } from "@/api/get/reply";
 import { ReplyTypes } from "@/types/reply";
 import { datetimeFormatter } from "@/utils/datetime-post-format";
 import { Button } from "@nextui-org/button";
 import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 import { BsThreeDots } from "react-icons/bs";
+import UpdateReplyModal from "@/components/Review/Reply/update-reply-modal";
+import DeleteReply from "./delete-reply";
 
-const ShowReplyComment = (props: { reviewId: string }) => {
-  const { reviewId } = props;
+const ShowReplyComment = (props: { reviewId: string, movieId: string }) => {
+  const { reviewId, movieId } = props;
   const [replyComment, setReplyComment] = React.useState<ReplyTypes[]>();
   const [choice, setChoice] = useState<{ [key: number]: boolean }>({});
 
@@ -19,7 +19,7 @@ const ShowReplyComment = (props: { reviewId: string }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const replyComment = await fetchReply();
+      const replyComment = await fetchReplyAll();
       setReplyComment(replyComment);
     };
     fetchData();
@@ -29,19 +29,16 @@ const ShowReplyComment = (props: { reviewId: string }) => {
     <>
       {replyComment?.map((data, index) => {
         const create_time = datetimeFormatter(data.time_stamp);
-        function showButton(index: number): void {
-          throw new Error("Function not implemented.");
-        }
 
         return (
           data.review_id === reviewId && (
             <div
               key={index}
               className={clsx(
-                "w-full h-[60px] transition-all flex items-center gap-2 px-2.5 relative"
+                "w-full h-[60px] transition-all flex items-center gap-2 px-3 relative"
               )}
             >
-              <div className="vl w-2 border-l-2 h-full border-white"></div>
+              <div className="opacity-70 w-2 border-l-2 h-full border-white"></div>
               <div className="flex gap-3 items-start">
                 <div className="rounded-full w-8 h-8 bg-gray-100"></div>
                 <div>
@@ -59,19 +56,19 @@ const ShowReplyComment = (props: { reviewId: string }) => {
                 <BsThreeDots className="w-4 h-4 fill-white" />
               </Button>
               {choice[index] && (
-                <div className="rounded flex flex-col w-[100px] bg-primary1 absolute top-9 right-[-10px] gap-1 p-1">
-                  {/* <UpdateModal
-                    reviewId={data.id}
+                <div className="rounded flex flex-col w-[100px] bg-primary1 absolute top-9 right-[-10px] gap-1 p-1 z-20">
+                  <UpdateReplyModal
+                    replyId={data.id}
+                    movieId={movieId}
                     index={index}
                     showButton={showButtons}
-                  /> */}
-                  {/* <DeleteReview
-                    reviewId={data.id}
-                    movieId={data.movie.id}
+                  />
+                  <DeleteReply
+                    replyId={data.id}
+                    movieId={movieId}
                     index={index}
                     showButton={showButtons}
-                  /> */}
-                  1
+                  />
                 </div>
               )}
             </div>

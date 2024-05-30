@@ -12,8 +12,6 @@ import { BsThreeDots } from "react-icons/bs";
 import PostReply from "./Reply/post-reply";
 import UpdateModal from "./update-modal";
 import DeleteReview from "./delete-review";
-import Link from "next/link";
-import moment from "moment";
 import { datetimeFormatter } from "@/utils/datetime-post-format";
 
 const Comments = (props: {
@@ -64,7 +62,7 @@ const Comments = (props: {
             className="w-full p-3.5 flex flex-col gap-1 my-3 relative"
           >
             <div className="flex gap-2 h-full">
-              <div className="vl w-2 border-l-2 border-white"></div>
+              <div className="opacity-70 w-2 border-l-2 border-white"></div>
               <div className="flex gap-3 justify-start">
                 <div className="rounded-full w-8 h-8 bg-gray-100"></div>
                 <div>
@@ -129,7 +127,7 @@ const Comments = (props: {
                 />
               </div>
             )}
-            {showReplies[index] && <ShowReplyComment reviewId={data.id} />}
+            {showReplies[index] && <ShowReplyComment movieId={data.movie.id} reviewId={data.id} />}
           </div>
         );
       })}

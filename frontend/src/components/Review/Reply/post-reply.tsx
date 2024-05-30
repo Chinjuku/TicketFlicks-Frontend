@@ -1,4 +1,5 @@
 import { createReply } from "@/api/post/create-reply";
+import Loading from "@/app/ui/Loading/loading-overlay";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import clsx from "clsx";
@@ -34,18 +35,19 @@ const PostReply = (props: ReplyProps) => {
       console.error(error)
       toast.error((error as Error).message)
     } finally {
-      setIsLoading(false) // Set loading to false when the request completes
+      setIsLoading(false)
     }
   }
+  if (isLoading) return <Loading />
   return (
     <form
       onSubmit={handleSubmit}
       className={clsx(
-        "w-full h-[60px] transition-all flex items-center justify-center pl-2.5"
+        "w-full h-[60px] transition-all flex items-center justify-center pl-3"
       )}
     >
       <div className="flex items-center gap-2 h-full w-[70%]">
-        <div className="vl w-2 h-full border-l-2 border-white"></div>
+        <div className="opacity-70 w-2 h-full border-l-2 border-white"></div>
         <div className="rounded-full w-8 h-8 bg-gray-100"></div>
         <input name="name" type="hidden" value="unknown" />
         <Input

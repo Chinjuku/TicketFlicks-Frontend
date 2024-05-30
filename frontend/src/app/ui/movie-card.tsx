@@ -34,7 +34,7 @@ const MovieCard = (props: { data: MovieTypes }) => {
             alt={data.movie_name}
         />
         <div className="h-[50px] desktop:h-[60px] phone:text-[10px] bg-black font-bold laptop:text-[14px] flex flex-col justify-center items-center">
-            <p className="px-2">Release Date: {moment(data.showing_date).format('MM/DD/YYYY')}</p>
+            <p className="px-2 hover:cursor-default tablet:text-[14px]">Release Date: {moment(data.showing_date).format('MM/DD/YYYY')}</p>
         </div>
         {/* Hover effect */}
         <div className="px-4 absolute desktop:w-[270px] desktop:h-[380px] w-[200px] h-[300px] phone:w-[140px] phone:h-[200px]  overflow-hidden bottom-0 left-0 right-0 top-0 bg-fixed opacity-0 bg-black transition duration-300 ease-in-out hover:bg-opacity-80 hover:opacity-100 flex flex-col justify-center gap-2">

@@ -1,10 +1,14 @@
 import axios from "axios"
 import { unstable_noStore as noStore } from 'next/cache';
 
+export const djangoHost = (path: string) => {
+  return `http://localhost:8000/api${path}`
+}
+
 // api "GET" requests 
 export const tryCatchGetMethod = async (path: string, elseReturn: any) => {
   try {
-    const res = await axios.get(`http://localhost:8000/api${path}`)
+    const res = await axios.get(djangoHost(path))
     if (res.status === 200) {
       return res.data
     } else {
@@ -18,7 +22,7 @@ export const tryCatchGetMethod = async (path: string, elseReturn: any) => {
 export const tryCatchGetDelayMethod = async (path: string, elseReturn: any) => {
   noStore();
   try {
-    const res = await axios.get(`http://localhost:8000/api${path}`)
+    const res = await axios.get(djangoHost(path))
     if (res.status === 200) {
       await new Promise((resolve) => setTimeout(resolve, 1000));
       return res.data
@@ -34,7 +38,7 @@ export const tryCatchGetDelayMethod = async (path: string, elseReturn: any) => {
 export const tryCatchPostMethod = async (path: string, data: any) => {
   noStore();
   try {
-    const res = await axios.post(`http://localhost:8000/api${path}`, data)
+    const res = await axios.post(djangoHost(path), data)
     if (res.status === 200) {
       return res.data
     }
@@ -62,7 +66,7 @@ export async function fetchPostJSON(url: string, data: any) {
 // api "DELETE" request
 export const tryCatchDeleteMethod = async (path: string) => {
   try {
-    const res = await axios.delete(`http://localhost:8000/api${path}`)
+    const res = await axios.delete(djangoHost(path))
     if (res.status === 200) {
       return res.data
     }

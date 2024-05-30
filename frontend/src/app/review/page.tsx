@@ -4,8 +4,9 @@ import React, { useState, Suspense } from "react";
 import "@/styles/home.css";
 import { ShowReviewMovie } from "@/components/Review/show-review-movie";
 import { SkeletonMovieReview } from "@/app/ui/Loading/skeleton-movie";
+import withAuthUser from "@/components/Auth/with-auth-user";
 
-const Page = () => {
+const Page: React.FC = ({ user } : any) => {
   const [type, setType] = useState<string>("ALL MOVIES");
   return (
     <main className="flex flex-col justify-center items-center h-full py-6 gap-5">
@@ -17,7 +18,7 @@ const Page = () => {
         <p className="h-1 bg-white w-full"></p>
       </div>
       <Suspense fallback={<SkeletonMovieReview />}>
-        <div className="grid grid-cols-4 gap-10">
+        <div className="grid grid-cols-4 phone:grid-cols-2 gap-10 phone:mt-5 mt-5">
           <ShowReviewMovie type={type} />
         </div>
       </Suspense>
@@ -25,4 +26,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default withAuthUser(Page);

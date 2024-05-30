@@ -57,7 +57,7 @@ export default function NavLinks({ value, setClose }: NavLinkProps) {
           key={link.name}
           href={link.href}
           className={clsx(
-            'flex transition-all hover:text-yellow grow flex-col gap-1 mb-5',
+            'flex transition-all hover:text-yellow grow flex-col gap-5 tablet:gap-2 phone:gap-1 mb-1 phone:text-[14px]',
             {
               'text-yellow': activeLink === link.href,
             },

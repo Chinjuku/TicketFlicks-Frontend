@@ -25,3 +25,5 @@ export const appearance: StripeApperance = {
       },
     },
   };
+
+  

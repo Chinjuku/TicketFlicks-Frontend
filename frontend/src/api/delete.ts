@@ -10,3 +10,12 @@ export const deleteReview = async (reviewId: string, movieId: string) => {
         throw new Error(`Could not delete`)
     }
 }
+
+export const deleteReply = async (replyId: string, movieId: string) => {
+    const res = await tryCatchDeleteMethod(`/changereply/${replyId}/`)
+    if (res) {
+        return revalidatePath(`/reply/${movieId}`)
+    } else {
+        throw new Error(`Could not delete`)
+    }
+}

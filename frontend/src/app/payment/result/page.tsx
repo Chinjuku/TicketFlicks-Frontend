@@ -56,8 +56,8 @@ const Page = () => {
           theme="dark"
       />
       {/* Tablet / Laptop / Desktop */}
-      <div className="p-20 h-[81.2vh] flex items-center justify-center phone:hidden">
-        <div className="w-4/5 tablet:w-full tablet:h-4/5 h-3/4 bg-primary rounded-lg flex">
+      <div className="p-20 h-[81.2vh] tablet:h-full flex items-center justify-center phone:hidden">
+        <div className="w-4/5 tablet:w-full tablet:h-[340px] h-3/4 bg-primary rounded-lg flex">
           <div className="w-1/2 flex flex-col items-center justify-center gap-5">
             <IoMdCheckmarkCircleOutline className="text-white h-28 w-28 tablet:h-24 tablet:w-24" />
             <p className="text-4xl tablet:text-3xl font-extrabold w-4/5 text-center">
@@ -74,33 +74,33 @@ const Page = () => {
                     }
                   }}
                   key={index}
-                  className="p-4 bg-secondary flex flex-col gap-2 h-full w-full mb-3 border-2 border-white relative"
+                  className="p-4 desktop:p-5 bg-secondary flex flex-col gap-2 desktop:gap-3 h-full w-full mb-3 border-2 border-white relative"
                 >
                   <div className="flex justify-between">
-                    <h3 className="text-[24px] tablet:text-[20px] font-bold">
+                    <h3 className="text-[24px] desktop:text-[28px] tablet:text-[20px] font-bold">
                       TicketFlicks
                     </h3>
-                    <h4 className="text-[24px] tablet:text-[20px] font-bold">
+                    <h4 className="text-[24px] desktop:text-[28px] tablet:text-[20px] font-bold">
                       Theatre {s.theatre.theatre_num}
                     </h4>
                   </div>
                   <div className="flex justify-between">
-                    <p className="tablet:text-[13.5px]">
+                    <p className="text-[11.5px]">
                       Date : {moment(s.theatre.show_time).format("DD MMMM")}
                     </p>
-                    <p className="tablet:text-[13.5px]">
+                    <p className="text-[11.5px]">
                       Time : {moment(s.theatre.show_time).format("HH:mm")}
                     </p>
                   </div>
-                  <p className="absolute tablet:text-[13.5px] bottom-2 right-2">
+                  <p className="absolute text-[11.5px] bottom-2 right-2">
                     {payment?.payment_id}
                   </p>
-                  <p className="tablet:text-[13.5px]">Seat : {s.seat_num}</p>
+                  <p className="text-[11.5px]">Seat : {s.seat_num}</p>
                 </div>
               ))}
             </div>
             <div className="h-1/4 flex justify-between items-center px-5">
-              <p className=" text-xl font-bold">
+              <p className="text-xl desktop:text-2xl font-bold">
                 Total : {payment?.amounts} THB
               </p>
               <div className="flex gap-5">
@@ -119,8 +119,67 @@ const Page = () => {
         </div>
       </div>
       {/* Phone */}
-      <div>
-          
+      <div className="hidden phone:flex items-center justify-center h-[100svh] p-7">
+          <div className="bg-primary h-full w-full rounded-xl">
+          <div className="w-full flex flex-col items-center justify-center gap-4 h-2/5">
+            <IoMdCheckmarkCircleOutline className="text-white h-16 w-16" />
+            <p className="text-xl font-bold w-3/5 text-center">
+              Your Payment is successful!
+            </p>
+          </div>
+          <div className="p-3 flex flex-col gap-5">
+            <div className="h-[180px] p-4 bg-primary1 block overflow-y-scroll">
+              {payment?.seats.map((s, index) => (
+                <div
+                  ref={(el) => {
+                    if (el) {
+                      ticketRefs.current[index] = el;
+                    }
+                  }}
+                  key={index}
+                  className="p-3 bg-secondary flex flex-col gap-2 h-full w-full mb-3 border-2 border-white relative"
+                >
+                  <div className="flex justify-between">
+                    <h3 className="font-bold">
+                      TicketFlicks
+                    </h3>
+                    <h4 className="font-bold">
+                      Theatre {s.theatre.theatre_num}
+                    </h4>
+                  </div>
+                  <div className="flex justify-between">
+                    <p className="text-[11.5px]">
+                      Date : {moment(s.theatre.show_time).format("DD MMMM")}
+                    </p>
+                    <p className="text-[11.5px]">
+                      Time : {moment(s.theatre.show_time).format("HH:mm")}
+                    </p>
+                  </div>
+                  <p className="absolute text-[11.5px] bottom-2 right-2">
+                    {payment?.payment_id}
+                  </p>
+                  <p className="text-[11.5px]">Seat : {s.seat_num}</p>
+                </div>
+              ))}
+            </div>
+            <div className="h-1/4 flex justify-between items-center px-5">
+              <p className="text-lg font-bold">
+                Total : {payment?.amounts} THB
+              </p>
+              <div className="flex gap-5">
+                <button
+                  onClick={handleSaveTickets}
+                  className="bg-transparent w-7"
+                >
+                  <HiOutlineDownload className="w-6 h-6" />
+                </button>
+                <Link href="/" as="/" className="bg-transparent w-7">
+                  <HiMiniHome className="w-6 h-6" />
+                </Link>
+              </div>
+            </div>
+            </div>
+          </div>
       </div>
     </>
   );

@@ -86,12 +86,9 @@ const Stepper = (props: StepperProps) => {
     }
   };
 
-  if (loading) {
-    return <Loading />;
-  }
-
   return (
     <div className="phone:flex-col items-center flex w-full phone:h-[400px] flex-auto justify-center max-w-[1200px]">
+      {loading ? <Loading /> : null}
       {stepData.map((item, index) =>
         index === stepData.length - 1 ? (
           <div key={index} className="phone:flex items-center phone:gap-5 phone:pl-24 phone:w-full">

@@ -31,7 +31,7 @@ const Navbar = () => {
       </div>
 
       {/* Responsive For Tablet & Phone */}
-      <div className="px-[5.5%] w-full flex justify-center flex-col gap-5 laptop:hidden desktop:hidden">
+      <div className="px-[5.5%] w-full flex justify-center flex-col gap-5 phone:gap-3 laptop:hidden desktop:hidden">
         <div className="w-full flex justify-between">
           <TicketIcon className="tablet:w-12 phone:w-6" />
           <h1 className="tablet:text-[36px] font-extrabold phone:text-[24px]">

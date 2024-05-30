@@ -26,7 +26,7 @@ const ScrollWatcher = () => {
     }, []);
 
     return (
-        <div ref={watcherRef} className='h-[4px] desktop:h-[10px] fixed bg-quaternary top-0 z-[1200]' />
+        <div ref={watcherRef} className='h-[4px] phone:h-[3px] desktop:h-[5px] fixed bg-quaternary top-0 z-[1200]' />
     );
 };
 

@@ -17,7 +17,6 @@ const Movie = () => {
     const [type, setType] = useState<string>("NOW SHOWING");
 
     useEffect(() => {
-        console.log("rrr")
         if (triggerRef.current && endTriggerRef.current) {
             gsap.to(triggerRef.current, {
                 scrollTrigger: {

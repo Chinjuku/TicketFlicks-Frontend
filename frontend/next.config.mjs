@@ -7,9 +7,6 @@ const nextConfig = {
         config.cache = false;
         return config;
     },
-    experimental: {
-        serverActions: true,
-    }
 };
 
 export default nextConfig;

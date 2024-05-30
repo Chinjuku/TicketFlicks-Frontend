@@ -7,7 +7,12 @@ export const fetchCountReplyAll = async () => {
     return data
 } 
 
-export const fetchReply = async () => {
+export const fetchReplyAll = async () => {
     const data: ReplyTypes[] = await tryCatchGetMethod(`/reply/`, [])
     return data
-} 
+}
+
+export const fetchReply = async (replyId: string) => {
+    const data: ReplyTypes = await tryCatchGetMethod(`/reply/${replyId}/`, null)
+    return data
+}
