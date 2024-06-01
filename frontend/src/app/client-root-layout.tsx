@@ -31,23 +31,23 @@ export default function ClientRootLayout({
   }, [isSelected]);
 
   return (
-    <div
-      id="body"
-      className={`${theme} bg-gradient-to-b from-black via-primary to-black text-white`}
-    >
-      <Toaster
-        toastOptions={{
-          className: "bg-primary1 border border-primary",
-          duration: 3000,
-        }}
-      />
-      <Navbar />
-      <SwitchToggle
-        isSelected={isSelected}
-        setIsSelected={(isSelected) => setIsSelected(isSelected)}
-      />
-      {children}
-      <ScrollWatcher />
-    </div>
+      <div
+        id="body"
+        className={`${theme} bg-gradient-to-b from-black via-primary to-black text-white`}
+      >
+        <Toaster
+          toastOptions={{
+            className: "bg-primary1 border border-primary",
+            duration: 3000,
+          }}
+        />
+        <Navbar />
+        <SwitchToggle
+          isSelected={isSelected}
+          setIsSelected={(isSelected) => setIsSelected(isSelected)}
+        />
+        {children}
+        <ScrollWatcher />
+      </div>
   );
 }

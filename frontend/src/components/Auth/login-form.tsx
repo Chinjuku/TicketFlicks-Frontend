@@ -1,9 +1,8 @@
 "use client"
 // components/LoginForm.tsx
 import React, { useState } from 'react';
-import axios from '@/utils/axios-instance'; // Use the custom axios instance
 import { useRouter } from 'next/navigation';
-import { setCookie } from 'nookies';
+import { setUserCookie } from '@/lib/auth';
 
 const LoginForm: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -16,9 +15,7 @@ const LoginForm: React.FC = () => {
     setError('');
 
     try {
-      const response = await axios.post('http://localhost:8000/api/auth/token/', { email, password });
-      setCookie(null, 'jwt', response.data.access, { maxAge: 60, path: '/' });
-      setCookie(null, 'refresh_token', response.data.refresh, { maxAge: 60 * 60 * 24, path: '/' });
+      await setUserCookie({ email, password })
       router.push('/dashboard');
     } catch (err) {
       setError('Invalid email or password');

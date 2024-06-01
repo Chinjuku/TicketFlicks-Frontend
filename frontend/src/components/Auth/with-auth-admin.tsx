@@ -15,11 +15,16 @@ const withAuthAdmin = (WrappedComponent: React.ComponentType<WithAuthAdminProps>
     useEffect(() => {
       const checkAuth = async () => {
         try {
-          const response = await axios.get('/login/api/protected-admin');
-          setUser(response.data.user);
+          const resAdmin = await axios.get('/login/api/protected-admin');
+          if (resAdmin.data.user.isAdmin) {
+            setUser(resAdmin.data.user);
+          } else {
+            const resUser = await axios.get('/login/api/protected-user');
+            setUser(resUser.data.user);
+          }
         } catch (err) {
-          console.log("not admin")
-          router.push('/');
+          console.log("no acc login")
+          router.push('/login');
         }
       };
 

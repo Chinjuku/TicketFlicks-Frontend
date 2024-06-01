@@ -1,12 +1,13 @@
 "use client";
 import { NavMovie } from "@/components/Movie/movie-nav";
-import React, { useState, Suspense } from "react";
+import React, { useState, Suspense, useContext } from "react";
 import "@/styles/home.css";
 import { ShowReviewMovie } from "@/components/Review/show-review-movie";
 import { SkeletonMovieReview } from "@/app/ui/Loading/skeleton-movie";
-import withAuthUser from "@/components/Auth/with-auth-user";
+import { useUser } from "@/context/userContext";
 
-const Page: React.FC = ({ user } : any) => {
+const Page: React.FC = () => {
+  // const { user } = useUser
   const [type, setType] = useState<string>("ALL MOVIES");
   return (
     <main className="flex flex-col justify-center items-center h-full py-6 gap-5">
@@ -26,4 +27,4 @@ const Page: React.FC = ({ user } : any) => {
   );
 };
 
-export default withAuthUser(Page);
+export default Page;

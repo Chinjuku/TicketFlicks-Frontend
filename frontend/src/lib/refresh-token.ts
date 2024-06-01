@@ -1,6 +1,7 @@
 // utils/refreshToken.ts
 import axios from 'axios';
 import { parseCookies, setCookie, destroyCookie } from 'nookies';
+import { djangoHost } from '../utils/api-helper';
 
 export const refreshToken = async () => {
   const cookies = parseCookies();
@@ -11,7 +12,7 @@ export const refreshToken = async () => {
   }
 
   try {
-    const response = await axios.post('/api/auth/token/refresh/', {
+    const response = await axios.post(djangoHost('/auth/token/refresh/'), {
       refresh: refreshToken,
     });
 

@@ -1,7 +1,7 @@
 // utils/axiosInstance.ts
 import axios from 'axios';
 import { parseCookies, destroyCookie } from 'nookies';
-import { refreshToken } from '@/utils/refresh-token';
+import { refreshToken } from '@/lib/refresh-token';
 
 const axiosInstance = axios.create({
   baseURL: 'http://localhost:8000',

@@ -3,6 +3,7 @@ import { lato } from "@/app/ui/fonts";
 import ClientRootLayout from "@/app/client-root-layout";
 import { SeatProvider } from "@/context/seatContext";
 import { ThemeProvider } from "@/context/themeContext";
+import { UserProvider } from "@/context/userContext";
 
 export const metadata: Metadata = {
   title: "TicketFlicks",
@@ -24,11 +25,13 @@ export default function RootLayout({
         className="desktop:pt-[196px] laptop:pt-[140px] tablet:pt-[150px] phone:pt-[97px] overflow-x-hidden h-screen"
         suppressHydrationWarning={true}
       >
-        <ThemeProvider>
-          <SeatProvider>
-            <ClientRootLayout>{children}</ClientRootLayout>
-          </SeatProvider>
-        </ThemeProvider>
+        <UserProvider>
+          <ThemeProvider>
+            <SeatProvider>
+              <ClientRootLayout>{children}</ClientRootLayout>
+            </SeatProvider>
+          </ThemeProvider>
+        </UserProvider>
       </body>
     </html>
   );
