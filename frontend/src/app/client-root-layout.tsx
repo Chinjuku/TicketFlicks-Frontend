@@ -5,7 +5,7 @@ import Navbar from "@/app/ui/navbar";
 import ScrollWatcher from "@/app/ui/scroll-watcher";
 import { SwitchToggle } from "@/app/ui/switch";
 import { themeContext } from "@/context/themeContext";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function ClientRootLayout({
   children,

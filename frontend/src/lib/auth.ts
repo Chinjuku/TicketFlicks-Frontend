@@ -1,8 +1,10 @@
 import type { NextRequest, NextResponse } from 'next/server'
 import { jwtVerify } from 'jose'
 import axios from 'axios'
-import { setCookie } from 'nookies'
+import { destroyCookie, setCookie } from 'nookies'
 import { djangoHost } from '@/utils/api-helper'
+import { revalidatePath } from 'next/cache'
+import { redirect } from 'next/navigation';
 
 export class AuthError extends Error { }
 
@@ -28,7 +30,10 @@ export async function setUserCookie(credentials: { email: string, password: stri
 
 }
 
-export function expireUserCookie(res: NextResponse) {
-    res.cookies.set('jwt', '', { httpOnly: true, maxAge: 0 })
-    return res
+export async function logout() {
+    destroyCookie(null, 'jwt');
+    destroyCookie(null, 'refresh_token');
+    localStorage.removeItem("userData")
+    revalidatePath("/");
+    redirect("/");
 }

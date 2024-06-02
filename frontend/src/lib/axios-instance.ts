@@ -1,4 +1,4 @@
-// utils/axiosInstance.ts
+// lib/axiosInstance.ts
 import axios from 'axios';
 import { parseCookies, destroyCookie } from 'nookies';
 import { refreshToken } from '@/lib/refresh-token';

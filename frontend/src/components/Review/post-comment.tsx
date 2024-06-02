@@ -1,12 +1,13 @@
 "use client";
-
 import { createReview } from "@/api/post/create-review";
 import { Button } from "@nextui-org/button";
 import { Input } from "@nextui-org/input";
 import React, { FormEvent, useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { useUser } from "@/context/userContext";
 
 const PostComment = (props: { movieId: string; reviewId: string }) => {
+  const { user } = useUser()
   const { movieId, reviewId } = props;
   const [rating, setRating] = useState<number>(0);
   const [hover, setHover] = useState<number>(0);
@@ -50,6 +51,7 @@ const PostComment = (props: { movieId: string; reviewId: string }) => {
     <div className="bg-secondary w-full h-[115px] max-h-[150px] p-2 rounded border-white border">
       <form ref={formRef} onSubmit={onSubmit}>
         <input type="hidden" name="movie" value={movieId} />
+        <input type="hidden" name="user" value={user?.id} />
         <div className="flex justify-between px-2.5 items-center">
           <div className="flex gap-2">
             <p>Name:</p>

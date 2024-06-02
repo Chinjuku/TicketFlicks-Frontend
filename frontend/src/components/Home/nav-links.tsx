@@ -10,7 +10,7 @@ const links = [
   { name: 'Movies', href: '/movie' },
   { name: 'Promotions', href: '/2' },
   { name: 'Review Movies', href: '/review' },
-  { name: 'About us', href: '/1' },
+  { name: 'Policy & Privacy', href: '/1' },
 ];
 
 type NavLinkProps = { value: boolean, setClose: (bools: boolean) => void };
