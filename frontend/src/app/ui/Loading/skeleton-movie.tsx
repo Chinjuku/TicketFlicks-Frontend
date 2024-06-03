@@ -44,13 +44,13 @@ export const SkeletonTop5BoxOffice = () => {
 
 export const SkeletonMovieReview = () => {
   return (
-    <div className="dark grid grid-cols-4 phone:grid-cols-2 justify-center h-[80%] flex-wrap desktop:gap-10 laptop:gap-[25px] tablet:gap-[25px] phone:gap-[20px]">
+    <div className="dark grid grid-cols-4 phone:grid-cols-2 justify-center h-[80%] mt-3 flex-wrap desktop:gap-10 laptop:gap-[25px] tablet:gap-[25px] phone:gap-[20px]">
         {[...Array(8)].map((_, index) => (
                 <Card
-                  className="rounded-lg desktop:w-[270px] bg-default300 desktop:h-[380px] phone:w-[140px] phone:h-[200px] w-[200px] h-[300px] space-y-5 p-4"
+                  className="rounded-lg desktop:w-[250px] bg-default300 desktop:h-[360px] phone:w-[140px] phone:h-[200px] w-[200px] h-[300px] space-y-5 p-4"
                   key={index}
                 >
-                  <Skeleton className="desktop:h-[340px] h-[270px] rounded-lg"></Skeleton>
+                  <Skeleton className="desktop:h-[300px] h-[270px] rounded-lg"></Skeleton>
                     <div className="space-y-3">
                     <Skeleton className="desktop:h-[40px] h-6 w-4/5 rounded-lg"></Skeleton>
                   </div>

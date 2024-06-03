@@ -1,6 +1,9 @@
 import axios from "axios"
 import { unstable_noStore as noStore } from 'next/cache';
 
+export const djangoImg = (path: string) => {
+  return `http://localhost:8000${path}`
+}
 export const djangoHost = (path: string) => {
   return `http://localhost:8000/api${path}`
 }

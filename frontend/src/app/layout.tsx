@@ -25,7 +25,7 @@ export default function RootLayout({
       style={lato.style}
     >
       <body
-        className="desktop:pt-[196px] laptop:pt-[140px] tablet:pt-[150px] phone:pt-[97px] overflow-x-hidden h-screen"
+        className="desktop:pt-[20vh] laptop:pt-[20vh] tablet:pt-[150px] phone:pt-[97px] overflow-x-hidden h-screen"
         suppressHydrationWarning={true}
       >
         {/* <QueryClientProvider client={queryClient}> */}

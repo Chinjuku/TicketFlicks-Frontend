@@ -1,7 +1,9 @@
-"use client"
-import React, { createContext, useContext, useState, useEffect, cache } from 'react';
+"use client";
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import axios from 'axios';
 import { User } from '@/types/user';
+import { setCookie, parseCookies } from 'nookies';
+import Loading from '@/app/ui/Loading/loading-overlay';
 
 interface UserContextProps {
   user: User | null;
@@ -11,19 +13,25 @@ interface UserContextProps {
 
 const UserContext = createContext<UserContextProps>({} as UserContextProps);
 
-export const UserProvider: React.FC<UserContextProps> = ({ children }: any) => {
+export const UserProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const fetchUserData = async () => {
     try {
-      const cachedUserData = localStorage.getItem('userData');
+      setLoading(true);
+      const cookies = parseCookies();
+      const cachedUserData = cookies.userData;
+
       if (cachedUserData) {
         setUser(JSON.parse(cachedUserData));
-      } 
-      else {
+        setLoading(false);
+      } else {
         const response = await axios.get('/login/api');
-        setUser(response.data.user);
-        localStorage.setItem('userData', JSON.stringify(response.data.user));
+        const userData = response.data.user;
+        setUser(userData);
+        setCookie(null, 'userData', JSON.stringify(userData), { maxAge: 60 * 10, path: '/' });
+        setLoading(false);
       }
     } catch (error) {
       console.error('Failed to fetch user data', error);
@@ -36,6 +44,7 @@ export const UserProvider: React.FC<UserContextProps> = ({ children }: any) => {
 
   return (
     <UserContext.Provider value={{ user, setUser, fetchUserData }}>
+      {loading && <Loading />}
       {children}
     </UserContext.Provider>
   );
@@ -48,6 +57,7 @@ export const useUser = () => {
   }
   return context;
 };
+
 
 // "use client";
 // import React, { createContext, useContext, useEffect, useState } from 'react';

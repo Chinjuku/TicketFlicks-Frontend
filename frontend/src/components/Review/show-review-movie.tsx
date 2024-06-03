@@ -34,13 +34,13 @@ export const ShowReviewMovie = (props: { type: string }) => {
         return (
           <div
             key={index}
-            className="bg-secondary relative desktop:w-[300px] desktop:h-[440px] w-[230px] rounded-lg h-[350px] phone:w-[150px] phone:h-[255px] hover:scale-[1.02] transition-all flex justify-center items-center group"
+            className="bg-secondary relative desktop:w-[260px] desktop:h-[400px] w-[230px] rounded-lg h-[350px] phone:w-[150px] phone:h-[255px] hover:scale-[1.02] transition-all flex justify-center items-center group"
           >
             <Link href="/review/[id]" as={`/review/${data.id}`}>
-              <Button className="desktop:w-[270px] desktop:h-[420px] w-[200px] rounded-lg h-[330px] phone:w-[130px] bg-secondary phone:h-[240px] px-0 hover:scale-[1.02] transition-all flex flex-col gap-0">
+              <Button className="desktop:w-[210px] desktop:h-[370px] w-[200px] rounded-lg h-[330px] phone:w-[130px] bg-secondary phone:h-[240px] px-0 hover:scale-[1.02] transition-all flex flex-col gap-0">
                 <img
                   src={`http://localhost:8000${data.movie_img}`}
-                  className="desktop:w-[270px] desktop:h-[380px] border-4 phone:border-3.5 border-white rounded-lg bg-secondary w-[200px] h-[260px] phone:w-[140px] phone:h-[170px] object-cover"
+                  className="desktop:w-[270px] desktop:h-[300px] border-4 phone:border-3.5 border-white rounded-lg bg-secondary w-[200px] h-[260px] phone:w-[140px] phone:h-[170px] object-cover"
                   alt={data.movie_name}
                 />
                 <div className="h-full w-full flex flex-col items-center bg-secondary p-3 gap-2">

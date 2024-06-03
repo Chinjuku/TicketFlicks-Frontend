@@ -40,7 +40,7 @@ const LoginForm: React.FC = () => {
   }, []);
 
   return (
-    <div className="h-[82vh] flex">
+    <div className="h-[80vh] flex">
       {loading && <Loading />}
       <form
         onSubmit={handleSubmit}

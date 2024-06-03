@@ -3,7 +3,7 @@ import { Skeleton } from '@nextui-org/skeleton'
 
 export const SkeletonPaymentPage = () => {
   return (
-    <div className="flex p-[80px] phone:p-[30px] gap-4 flex-wrap phone:gap-12 desktop:h-[83vh] h-[81.2vh] animate-pulse">
+    <div className="flex p-[80px] phone:p-[30px] gap-4 flex-wrap phone:gap-12 desktop:h-[80vh] h-[81.2vh] animate-pulse">
       <div className="grow w-[48%] phone:w-1/2 flex flex-col p-[2.8%] gap-5 phone:gap-3">
         <div className="flex gap-3 items-center font-bold mb-5">
           <Skeleton className="bg-gray-300 w-7 h-7 desktop:w-12 desktop:h-12 rounded-full"></Skeleton>

@@ -25,7 +25,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`bg-gradient-to-b from-black from-30% via-primary via-50% to-black desktop:h-[196px] laptop:h-[140px] tablet:h-[150px] phone:h-[97px] flex fixed top-0 z-[1000] w-full`}
+      className={`bg-gradient-to-b from-black from-30% via-primary via-50% to-black desktop:h-[20vh] laptop:h-[20vh] tablet:h-[150px] phone:h-[97px] flex fixed top-0 z-[1000] w-full`}
     >
       {/* Responsive For Laptop & Desktop */}
       <div className="tablet:hidden phone:hidden w-full flex">
@@ -36,7 +36,7 @@ const Navbar = () => {
           <p className="mt-[-1.5%] laptop:text-[12px]">First Branch</p>
         </div>
         <div className="w-[66%] flex items-center hide">
-          <div className="navbox-desktop navbox-laptop drop-shadow-[0_35px_35px_rgba(60,60,60,0.25)] border-secondary bg-none w-full flex items-center">
+          <div className="h-[100px] rounded-[50px] border-[5px] text-[22px] font-extrabold navbox-laptop drop-shadow-[0_35px_35px_rgba(60,60,60,0.25)] border-secondary bg-none w-full flex items-center">
             <NavLinks value={true} setClose={(bools) => setOpen(bools)} />
           </div>
         </div>
@@ -103,8 +103,8 @@ const Navbar = () => {
       </div>
 
       {/* Responsive For Tablet & Phone */}
-      <div className="px-[5.5%] w-full flex justify-center flex-col gap-5 phone:gap-3 laptop:hidden desktop:hidden">
-        <div className="w-full flex justify-between">
+      <div className="px-[5.5%] w-full flex justify-center items-center flex-col gap-5 phone:gap-3 laptop:hidden desktop:hidden">
+        <div className="w-full flex justify-between items-center">
           {user ? (
             <>
               <Dropdown className={`${theme} text-white`}>

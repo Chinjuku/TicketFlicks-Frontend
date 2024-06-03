@@ -1,4 +1,3 @@
-import type { NextRequest, NextResponse } from 'next/server'
 import { jwtVerify } from 'jose'
 import axios from 'axios'
 import { destroyCookie, setCookie } from 'nookies'
@@ -29,7 +28,7 @@ export async function setUserCookie(credentials: { email: string, password: stri
 }
 
 export async function logout() {
-    localStorage.removeItem("userData")
+    destroyCookie(null, 'userData')
     destroyCookie(null, 'jwt');
     destroyCookie(null, 'refresh_token');
     location.reload();

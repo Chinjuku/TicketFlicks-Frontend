@@ -56,7 +56,7 @@ const Page = () => {
           theme="dark"
       />
       {/* Tablet / Laptop / Desktop */}
-      <div className="p-20 h-[81.2vh] tablet:h-full flex items-center justify-center phone:hidden">
+      <div className="p-20 h-[80vh] tablet:h-full flex items-center justify-center phone:hidden">
         <div className="w-4/5 tablet:w-full tablet:h-[340px] h-3/4 bg-primary rounded-lg flex">
           <div className="w-1/2 flex flex-col items-center justify-center gap-5">
             <IoMdCheckmarkCircleOutline className="text-white h-28 w-28 tablet:h-24 tablet:w-24" />

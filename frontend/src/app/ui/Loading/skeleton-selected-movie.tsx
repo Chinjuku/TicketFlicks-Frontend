@@ -11,7 +11,7 @@ export const SkeletonSelectMovie = () => {
         <p className="w-1/5 h-2 bg-tertiary"></p>
       </div>
       <section className="flex gap-[7%] phone:flex-wrap phone:gap-10 my-10">
-        <div className="w-1/2 grow flex items-center laptop:h-[500px] justify-end phone:justify-center">
+        <div className="w-1/2 grow flex items-center desktop:h-[600px] laptop:h-[500px] justify-end phone:justify-center">
           <Skeleton className="w-56 h-[330px] phone:h-[250px] phone:w-36"></Skeleton>
         </div>
         <div className="w-1/2 grow flex flex-col items-start phone:items-center justify-center gap-5">
