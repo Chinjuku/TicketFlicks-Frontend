@@ -13,11 +13,13 @@ import PostReply from "./Reply/post-reply";
 import UpdateModal from "./update-modal";
 import DeleteReview from "./delete-review";
 import { datetimeFormatter } from "@/utils/datetime-post-format";
+import { useUser } from "@/context/userContext";
 
 const Comments = (props: {
   fetchComments: ReviewTypes[];
   fetchCountReply: CountReplyTypes[];
 }) => {
+  const { user } = useUser();
   const { fetchComments, fetchCountReply } = props;
   const [showReplies, setShowReplies] = useState<{ [key: number]: boolean }>(
     {}
@@ -51,7 +53,7 @@ const Comments = (props: {
   return (
     <>
       {fetchComments.slice(0, showMoreComment).map((data, index) => {
-        const create_time = datetimeFormatter(data.time_stamp)
+        const create_time = datetimeFormatter(data.time_stamp);
         const countData = fetchCountReply.find(
           (countData) => countData.review_id === data.id
         );
@@ -67,7 +69,9 @@ const Comments = (props: {
                 <div className="rounded-full w-8 h-8 bg-gray-100"></div>
                 <div>
                   <div className="flex gap-3 items-end">
-                    <p className="font-bold">@{data.name}</p>
+                    <p className="font-bold">
+                      @{data.user.name ? data.user.name : data.user.email}
+                    </p>
                     <p className="text-[12px] text-[#d9d9d9]">{create_time}</p>
                   </div>
                   <p className="text-sm">{data.review_comment}</p>
@@ -79,12 +83,14 @@ const Comments = (props: {
                 <IoStar className="w-4 h-4 fill-yellow" />
                 <p>stars ({data.stars})</p>
               </div>
-              <Button
-                onClick={() => toggleReplyField(index)}
-                className="bg-transparent items-center gap-2 flex"
-              >
-                <FaRegComment className="fill-white" /> Reply
-              </Button>
+              {user && (
+                <Button
+                  onClick={() => toggleReplyField(index)}
+                  className="bg-transparent items-center gap-2 flex"
+                >
+                  <FaRegComment className="fill-white" /> Reply
+                </Button>
+              )}
               <Button
                 onClick={() => toggleShowReply(index)}
                 className="flex items-center gap-2 text-gray-500 bg-transparent px-0"
@@ -106,12 +112,14 @@ const Comments = (props: {
                 toggleReplyField={(index) => toggleReplyField(index)}
               />
             )}
-            <Button
-              onClick={() => showButton(index)}
-              className="w-4 h-5 bg-transparent absolute top-2 right-3"
-            >
-              <BsThreeDots className="w-4 h-4 fill-white" />
-            </Button>
+            {user?.id === data.user.id && (
+              <Button
+                onClick={() => showButton(index)}
+                className="w-4 h-5 bg-transparent absolute top-2 right-3"
+              >
+                <BsThreeDots className="w-4 h-4 fill-white" />
+              </Button>
+            )}
             {choice[index] && (
               <div className="rounded flex flex-col w-[100px] bg-primary1 absolute top-9 right-[-10px] gap-1 p-1">
                 <UpdateModal
@@ -127,7 +135,9 @@ const Comments = (props: {
                 />
               </div>
             )}
-            {showReplies[index] && <ShowReplyComment movieId={data.movie.id} reviewId={data.id} />}
+            {showReplies[index] && (
+              <ShowReplyComment movieId={data.movie.id} reviewId={data.id} />
+            )}
           </div>
         );
       })}

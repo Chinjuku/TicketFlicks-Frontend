@@ -45,7 +45,7 @@ const Navbar = () => {
             <>
               <Dropdown className={`${theme} text-white`}>
                 <DropdownTrigger>
-                  <Button className="flex gap-2 items-center bg-transparent">
+                  <Button className="flex gap-2 items-center bg-transparent desktop:text-[22px] laptop:text-[18px]">
                     <FaCircleUser className="w-7 h-7" />
                     {user.name
                       ? user.name
@@ -54,10 +54,24 @@ const Navbar = () => {
                 </DropdownTrigger>
                 <DropdownMenu aria-label="Static Actions">
                   <DropdownItem key="profile">
-                    <Link href="/profile">Profile</Link>
+                    <Link href="/profile">
+                      <Button className="w-full h-full bg-transparent desktop:text-[18px]">
+                        Profile
+                      </Button>
+                    </Link>
                   </DropdownItem>
-                  <DropdownItem key="dashboard">
-                    {user.isAdmin && <Link href="/dashboard" className="w-full h-full">Dashboard</Link>}
+                  <DropdownItem
+                    key="dashboard"
+                    className={clsx("block", {
+                      hidden: !user.isAdmin,
+                    })}
+                  >
+                    <Link
+                      href="/dashboard"
+                      className="w-full h-full desktop:text-[18px]"
+                    >
+                      Dashboard
+                    </Link>
                   </DropdownItem>
                   <DropdownItem
                     key="logout"
@@ -65,7 +79,10 @@ const Navbar = () => {
                     color="danger"
                   >
                     <form action={logout}>
-                      <button type="submit" className="w-full">
+                      <button
+                        type="submit"
+                        className="w-full h-full desktop:text-[18px]"
+                      >
                         Logout
                       </button>
                     </form>
@@ -89,13 +106,57 @@ const Navbar = () => {
       <div className="px-[5.5%] w-full flex justify-center flex-col gap-5 phone:gap-3 laptop:hidden desktop:hidden">
         <div className="w-full flex justify-between">
           {user ? (
-            <FaCircleUser className="w-6 h-6" />
+            <>
+              <Dropdown className={`${theme} text-white`}>
+                <DropdownTrigger>
+                  <Button className="flex gap-2 items-center bg-transparent">
+                    <FaCircleUser className="w-7 h-7" />
+                    {user.name
+                      ? user.name
+                      : user.email.split("@")[0].substring(0, 6) + "..."}
+                  </Button>
+                </DropdownTrigger>
+                <DropdownMenu aria-label="Static Actions">
+                  <DropdownItem key="profile">
+                    <Link href="/profile">
+                      <Button className="w-full h-full bg-transparent desktop:text-[18px]">
+                        Profile
+                      </Button>
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem
+                    key="dashboard"
+                    className={clsx("block", {
+                      hidden: !user.isAdmin,
+                    })}
+                  >
+                    <Link
+                      href="/dashboard"
+                      className="w-full h-full desktop:text-[18px]"
+                    >
+                      Dashboard
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem
+                    key="logout"
+                    className="text-danger"
+                    color="danger"
+                  >
+                    <form action={logout}>
+                      <button type="submit" className="w-full">
+                        Logout
+                      </button>
+                    </form>
+                  </DropdownItem>
+                </DropdownMenu>
+              </Dropdown>
+            </>
           ) : (
             <Link
               href="/login"
-              className="text-[13.5px] hover:scale-[1.1] transition-all flex gap-2 items-center"
+              className="hover:scale-[1.1] transition-all flex gap-2 items-center"
             >
-              <FaUser className="w-3 h-3" />
+              <FaUser className="w-4 h-4" />
               Login
             </Link>
           )}

@@ -9,14 +9,16 @@ const reviewSchema = z.object({
   stars: z.number({message: "add stars!"}).min(1).max(5),
   review_comment: z.string().min(1, {message: "addcomment!!"}),
   movie: z.string(),
+  user: z.string(),
 });
 
 export const createReview = async (formData: FormData, reviewId:string) => {
   const validatedFields = reviewSchema.safeParse({
-    name: formData.get('name'),
+    name: formData.get('name') as string,
     stars: parseInt(formData.get('stars') as string),
     review_comment: formData.get('review_comment'),
-    movie: formData.get('movie'),
+    movie: formData.get('movie') as string,
+    user: formData.get('user') as string,
   });
 
   if (!validatedFields.success) {

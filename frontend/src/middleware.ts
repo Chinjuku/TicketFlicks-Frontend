@@ -8,7 +8,10 @@ export async function middleware(req: NextRequest) {
 
   if (!token) {
     if (pathname.startsWith('/dashboard')) {
-      return NextResponse.redirect(new URL('/login?error=Please login first to access this route', req.url));
+      return NextResponse.redirect(new URL('/login?unauthorize', req.url));
+    }
+    else if (pathname.startsWith('/profile')) {
+      return NextResponse.redirect(new URL('/login?unauthorize', req.url));
     }
     return NextResponse.next();
   }
@@ -22,11 +25,8 @@ export async function middleware(req: NextRequest) {
       return NextResponse.redirect(new URL('/', req.url));
     }
 
-    req.headers.set('x-user-data', JSON.stringify(user));
-
     return NextResponse.next();
   } catch (err) {
-    // console.error('JWT verification error:' token);
     return NextResponse.redirect(new URL('/login?error=Invalid token', req.url));
   }
 }
@@ -35,5 +35,6 @@ export const config = {
   matcher: [
     '/dashboard/:path*',
     '/login',
+    '/profile/:path*'
   ],
 };

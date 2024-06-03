@@ -19,7 +19,8 @@ export const UserProvider: React.FC<UserContextProps> = ({ children }: any) => {
       const cachedUserData = localStorage.getItem('userData');
       if (cachedUserData) {
         setUser(JSON.parse(cachedUserData));
-      } else {
+      } 
+      else {
         const response = await axios.get('/login/api');
         setUser(response.data.user);
         localStorage.setItem('userData', JSON.stringify(response.data.user));

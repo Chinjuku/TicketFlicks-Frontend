@@ -38,7 +38,7 @@ const UpdateModal = (props: {
       const res = await fetchReview(reviewId);
       setRating(res.stars);
       setReview({
-        name: res.name,
+        name: res.user.name,
         review_comment: res.review_comment,
         movieId: res.movie.id,
       });

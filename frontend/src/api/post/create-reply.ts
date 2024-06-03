@@ -7,7 +7,8 @@ import { z } from 'zod'
 const formSchema = z.object({
     name: z.string().min(1, {message: 'Field your name!'}),
     reply_comment: z.string().min(1, {message: 'Reply before submit'}),
-    review_id: z.string()
+    review_id: z.string(),
+    user: z.string()
 })
 
 export const createReply = async (formData: FormData, reviewId: string, movieId: string) => {
@@ -15,6 +16,7 @@ export const createReply = async (formData: FormData, reviewId: string, movieId:
         name: formData.get('name') as string,
         reply_comment: formData.get('reply_comment') as string,
         review_id: reviewId,
+        user: formData.get('user') as string,
     })
 
     if (!validateFields.success) {

@@ -1,4 +1,5 @@
-import { MovieTypes } from "./movie";
+import { MovieTypes } from "@/types/movie";
+import { User } from "@/types/user";
 
 export type CountReviewTypes = {
     movie: string;
@@ -12,6 +13,7 @@ export type ReviewTypes = {
     stars: number;
     movie: MovieTypes;
     time_stamp: Date
+    user: User
 }
 
 export type CreateReviewTypes = {

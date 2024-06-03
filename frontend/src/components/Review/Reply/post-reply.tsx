@@ -5,6 +5,7 @@ import { Input } from "@nextui-org/input";
 import clsx from "clsx";
 import React, { FormEvent } from "react";
 import toast from "react-hot-toast";
+import { useUser } from "@/context/userContext";
 
 type ReplyProps = {
   reviewId: string;
@@ -14,6 +15,7 @@ type ReplyProps = {
 };
 
 const PostReply = (props: ReplyProps) => {
+  const { user } = useUser()
   const { reviewId, index, toggleReplyField, movieId } = props
   const [isLoading, setIsLoading] = React.useState<boolean>(false)
   
@@ -49,6 +51,7 @@ const PostReply = (props: ReplyProps) => {
       <div className="flex items-center gap-2 h-full w-[70%]">
         <div className="opacity-70 w-2 h-full border-l-2 border-white"></div>
         <div className="rounded-full w-8 h-8 bg-gray-100"></div>
+        <input type="hidden" name="user" value={user?.id} />
         <input name="name" type="hidden" value="unknown" />
         <Input
           className="w-[70%] mb-5 bg-transparent dark:bg-transparent text-black"

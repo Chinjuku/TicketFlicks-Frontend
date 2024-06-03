@@ -3,8 +3,6 @@ import { jwtVerify } from 'jose'
 import axios from 'axios'
 import { destroyCookie, setCookie } from 'nookies'
 import { djangoHost } from '@/utils/api-helper'
-import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation';
 
 export class AuthError extends Error { }
 
@@ -27,13 +25,12 @@ export async function setUserCookie(credentials: { email: string, password: stri
     const response = await axios.post(djangoHost('/auth/token/'), credentials);
     setCookie(null, 'jwt', response.data.access, { maxAge: 60 * 10, path: '/' });
     setCookie(null, 'refresh_token', response.data.refresh, { maxAge: 60 * 60 * 24, path: '/' });
-
+    location.reload();
 }
 
 export async function logout() {
+    localStorage.removeItem("userData")
     destroyCookie(null, 'jwt');
     destroyCookie(null, 'refresh_token');
-    localStorage.removeItem("userData")
-    revalidatePath("/");
-    redirect("/");
+    location.reload();
 }
